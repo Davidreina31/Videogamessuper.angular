@@ -8,6 +8,9 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { MenuComponent } from './menu/menu.component';
 import { FavoritesGamesComponent } from './favorites-games/favorites-games.component';
+import { GamesComponent } from './games/games.component';
+
+import { QuestionsComponent } from './questions/questions.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,9 @@ import { FavoritesGamesComponent } from './favorites-games/favorites-games.compo
     RegisterComponent,
     LoginComponent,
     MenuComponent,
-    FavoritesGamesComponent
+    FavoritesGamesComponent,
+    GamesComponent,
+    QuestionsComponent
   ],
   imports: [
     BrowserModule,
