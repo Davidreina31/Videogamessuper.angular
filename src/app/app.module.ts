@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,7 @@ import { FavoritesGamesComponent } from './favorites-games/favorites-games.compo
 import { GamesComponent } from './games/games.component';
 
 import { QuestionsComponent } from './questions/questions.component';
+import { DetailsVideogamesComponent } from './details-videogames/details-videogames.component';
 
 @NgModule({
   declarations: [
@@ -21,11 +23,13 @@ import { QuestionsComponent } from './questions/questions.component';
     MenuComponent,
     FavoritesGamesComponent,
     GamesComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    DetailsVideogamesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
