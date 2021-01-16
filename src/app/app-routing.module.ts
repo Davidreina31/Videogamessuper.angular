@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DetailsVideogamesComponent } from './details-videogames/details-videogames.component';
 import { FavoritesGamesComponent } from './favorites-games/favorites-games.component';
 import { GamesComponent } from './games/games.component';
 import { HomeComponent } from './home/home.component';
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'questions',
     component: QuestionsComponent
+  },
+  {
+    path: 'detailsvg/:id',
+    component: DetailsVideogamesComponent
   }
 ];
 

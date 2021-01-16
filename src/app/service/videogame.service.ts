@@ -15,4 +15,8 @@ export class VideogameService {
   public getAll(): Observable <VideoGame[]>{
     return this._client.get<VideoGame[]>(this._url); 
   }
+
+  public getOne(id: number): Observable<VideoGame>{
+    return this._client.get<VideoGame>(this._url + id);
+  }
 }
