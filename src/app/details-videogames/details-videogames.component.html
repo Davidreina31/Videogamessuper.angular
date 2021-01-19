@@ -5,10 +5,47 @@
 <br>
 <br>
 
-<img src="{{videoGame.jacketUrl}}" style="float: left;" width="200" height="270" alt="">
+<img src="{{videoGame.jacketUrl}}" class="center" width="200" height="270" alt="">
 <h4>{{videoGame.name}}</h4>
 <br>
 <h5>Description :</h5>
-<p>{{videoGame.description}}<p>
+<p>{{videoGame.description}}
+<p>
 <h5>Date de sortie :</h5>
 <p>{{videoGame.releaseDate | date}}</p>
+
+
+
+<br>
+<br>
+<br>
+<div class="container bootstrap snippets bootdey" *ngFor="let item of comments">
+    <div class="row">
+        <div class="post-list">
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-6">
+                    <h4>
+                        <a class="username">{{item.userId}}</a>
+                        <br>
+                        {{item.note}}/20
+                    </h4>
+                    <h5> 
+                    <i class="fa fa-calendar"></i>
+                    {{item.commentDate | date}}
+                    </h5>
+                    <p class="description">{{item.commentText}}</p>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngFor="let item of questions">
+<p>{{item.userId}}</p>
+<p>{{item.questionDate | date}}</p>
+<p>{{item.questionText}}</p>
+</div>
+
