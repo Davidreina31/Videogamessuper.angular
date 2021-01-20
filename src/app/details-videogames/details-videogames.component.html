@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-sm-6">
                     <h4>
-                        <a class="username">{{item.userId}}</a>
+                        <a class="username">{{item.user.userName}}</a>
                         <br>
                         {{item.note}}/20
                     </h4>
@@ -44,8 +44,13 @@
 
 
 <div *ngFor="let item of questions">
-<p>{{item.userId}}</p>
+<p>{{item.user.userName}}</p>
 <p>{{item.questionDate | date}}</p>
 <p>{{item.questionText}}</p>
+<div *ngFor="let a of item.answers">
+    <p>{{a.user.userName}}</p>
+    <p>{{a.answerDate | date}}</p>
+    <p>{{a.answerText}}</p>
+</div>
 </div>
 

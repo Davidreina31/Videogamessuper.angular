@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export class Comment {
     public commentId: number;
     public note: number;
@@ -5,4 +7,5 @@ export class Comment {
     public commentDate: Date;
     public userId: number;
     public plateform_videoGameId: number;
+    public user: User;
 }

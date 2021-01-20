@@ -15,4 +15,8 @@ export class QuestionService {
   public getAllFromVideoGame(id: number) : Observable<Question[]>{
     return this._client.get<Question[]>(this._url + id);
   }
+
+  public getOne(id : number) : Observable<Question>{
+    return this._client.get<Question>("http://localhost:5001/api/Question?id=" +id);
+  }
 }
