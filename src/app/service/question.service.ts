@@ -12,11 +12,15 @@ export class QuestionService {
 
   constructor(private _client: HttpClient) { }
 
-  public getAllFromVideoGame(id: number) : Observable<Question[]>{
+  public getAllFromVideoGame(id: number): Observable<Question[]> {
     return this._client.get<Question[]>(this._url + id);
   }
 
-  public getOne(id : number) : Observable<Question>{
-    return this._client.get<Question>("http://localhost:5001/api/Question?id=" +id);
+  public getOne(id: number): Observable<Question> {
+    return this._client.get<Question>("http://localhost:5001/api/Question?id=" + id);
+  }
+
+  public createQuestion(q: Question): Observable<void>{
+    return this._client.post<void>(this._url, q);
   }
 }

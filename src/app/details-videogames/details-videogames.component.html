@@ -33,7 +33,7 @@
     </h5>
     <p class="description">{{item.commentText}}</p>
     <label>
-        <input type="button" value="Supprimer" (click)="deleteComment(item.commentId)" style="text-align: right;">
+        <input type="button" value="Supprimer" (click)="deleteComment(item.commentId)">
       </label>
 </div>
 
@@ -41,10 +41,7 @@
 <h4>Ajouter un commentaire</h4>
 <br>
 <form [formGroup]="form" (ngSubmit)="insertComment()">
-    <label for="id"> 
-        <input type="hidden" id="id" formControlName="id">
-    </label>
-    <label for="note"> Note
+    <label for="note"> Note /20
         <input type="number" id="note" formControlName="note">
     </label>
     <label for="comment"> Commentaire
@@ -64,9 +61,30 @@
     <p>{{item.user.userName}}</p>
     <p>{{item.questionDate | date}}</p>
     <p>{{item.questionText}}</p>
+
     <div *ngFor="let a of item.answers">
         <p>{{a.user.userName}}</p>
         <p>{{a.answerDate | date}}</p>
-        <p>{{a.answerText}}</p>
+        <p>R : {{a.answerText}}</p>
     </div>
+    <form [formGroup]="formAnswer" (ngSubmit)="insertAnswer(item.questionId)">
+        <label for="answer"> <h5>Répondre</h5>
+            <input type="text" id="answer" formControlName="answer">
+        </label>
+        <label>
+            <input type="submit" value="Envoyer" [disabled]="formAnswer.invalid">
+          </label>
+    </form>
 </div>
+
+<hr>
+<h4>Ajouter une question</h4>
+<br>
+<form [formGroup]="formQuestion" (ngSubmit)="insertQuestion()">
+    <label for="question"> Question
+        <input type="text" id="question" formControlName="question">
+    </label>
+    <label>
+        <input type="submit" value="Envoyer" [disabled]="formQuestion.invalid">
+      </label>
+</form>

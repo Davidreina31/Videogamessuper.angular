@@ -15,4 +15,8 @@ export class AnswerService {
   public getAllFromOneQuestion(id : number) : Observable<Answer[]>{
     return this._client.get<Answer[]>(this._url + id);
   }
+
+  public createAnswer(a: Answer): Observable<void>{
+    return this._client.post<void>(this._url, a);
+  }
 }

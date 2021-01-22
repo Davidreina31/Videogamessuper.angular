@@ -25,13 +25,17 @@ export class DetailsVideogamesComponent implements OnInit {
   comment: Comment;
   commentId: any;
   questions: Question[] = [];
+  question: Question;
   userName: any;
   videoGameId: any;
   userId: any;
   questionId: any;
   answers: Answer[] = [];
+  answer: Answer;
   answerText: string;
   form: FormGroup;
+  formQuestion: FormGroup;
+  formAnswer: FormGroup;
 
 
   constructor(private _videoGameService: VideogameService,
@@ -88,6 +92,14 @@ export class DetailsVideogamesComponent implements OnInit {
       }
     )
 
+    this.formQuestion = this._builder.group({
+      question: ['', [Validators.required]]
+    })
+
+    this.formAnswer = this._builder.group({
+      answer: ['', [Validators.required]]
+    })
+
   }
 
   public insertComment() {
@@ -109,6 +121,32 @@ export class DetailsVideogamesComponent implements OnInit {
       next: () => this._router.navigate(["/games"]),
       error: (error) => console.log('Error')
     })
+  }
+
+  public insertQuestion() {
+    if (this.formQuestion.valid) {
+      this.question = new Question();
+      this.question.userId = 13;
+      this.question.questionText = this.formQuestion.controls['question'].value;
+      this.question.videoGameId = this.videoGameId;
+      this._questionService.createQuestion(this.question).subscribe({
+        next: () => this._router.navigate(["/games"]),
+        error: (error) => console.log(error)
+      })
+    }
+  }
+
+  public insertAnswer(id: number){
+    if(this.formAnswer.valid){
+      this.answer = new Answer();
+      this.answer.userId = 16;
+      this.answer.answerText = this.formAnswer.controls['answer'].value;
+      this.answer.questionId = id;
+      this._answerService.createAnswer(this.answer).subscribe({
+        next: () => this._router.navigate(["/games"]),
+        error: (error) => console.log(error)
+      })
+    }
   }
 
 
