@@ -16,41 +16,57 @@
 
 
 
+
+<hr>
+<h4>Commentaires : </h4>
 <br>
+<div *ngFor="let item of comments">
+
+    <h4>
+        <a class="username">{{item.user.userName}}</a>
+        <br>
+        {{item.note}}/20
+    </h4>
+    <h5>
+        <i class="fa fa-calendar"></i>
+        {{item.commentDate | date}}
+    </h5>
+    <p class="description">{{item.commentText}}</p>
+    <label>
+        <input type="button" value="Supprimer" (click)="deleteComment(item.commentId)" style="text-align: right;">
+      </label>
+</div>
+
+<hr>
+<h4>Ajouter un commentaire</h4>
 <br>
+<form [formGroup]="form" (ngSubmit)="insertComment()">
+    <label for="id"> 
+        <input type="hidden" id="id" formControlName="id">
+    </label>
+    <label for="note"> Note
+        <input type="number" id="note" formControlName="note">
+    </label>
+    <label for="comment"> Commentaire
+        <input type="text" id="comment" formControlName="comment">
+    </label>
+    <label>
+        <input type="submit" value="Envoyer" [disabled]="form.invalid">
+      </label>
+</form>
 <br>
-<div class="container bootstrap snippets bootdey" *ngFor="let item of comments">
-    <div class="row">
-        <div class="post-list">
-            <div class="row">
-                <div class="col-sm-2">
-                </div>
-                <div class="col-sm-6">
-                    <h4>
-                        <a class="username">{{item.user.userName}}</a>
-                        <br>
-                        {{item.note}}/20
-                    </h4>
-                    <h5> 
-                    <i class="fa fa-calendar"></i>
-                    {{item.commentDate | date}}
-                    </h5>
-                    <p class="description">{{item.commentText}}</p>    
-                </div>
-            </div>
-        </div>
+<hr>
+<br>
+
+<h3>Questions/réponses</h3>
+<br>
+<div *ngFor="let item of questions">
+    <p>{{item.user.userName}}</p>
+    <p>{{item.questionDate | date}}</p>
+    <p>{{item.questionText}}</p>
+    <div *ngFor="let a of item.answers">
+        <p>{{a.user.userName}}</p>
+        <p>{{a.answerDate | date}}</p>
+        <p>{{a.answerText}}</p>
     </div>
 </div>
-
-
-<div *ngFor="let item of questions">
-<p>{{item.user.userName}}</p>
-<p>{{item.questionDate | date}}</p>
-<p>{{item.questionText}}</p>
-<div *ngFor="let a of item.answers">
-    <p>{{a.user.userName}}</p>
-    <p>{{a.answerDate | date}}</p>
-    <p>{{a.answerText}}</p>
-</div>
-</div>
-

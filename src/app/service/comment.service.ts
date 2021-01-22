@@ -8,11 +8,20 @@ import { Comment } from '../models/comment';
 })
 export class CommentService {
 
-  private _url : string = "http://localhost:5001/api/comment/";
+  private _url: string = "http://localhost:5001/api/comment/";
 
-  constructor(private _client : HttpClient) { }
+  constructor(private _client: HttpClient) { }
 
-  public getCommentFromVideoGameId(id : number) : Observable<Comment[]>{
+  public getCommentFromVideoGameId(id: number): Observable<Comment[]> {
     return this._client.get<Comment[]>(this._url + id);
   }
+
+  public createComment(c: Comment): Observable<void> {
+    return this._client.post<void>(this._url, c);
+  }
+
+  public deleteComment(id: number): Observable<void>{
+    return this._client.delete<void>(this._url + id);
+  }
+
 }

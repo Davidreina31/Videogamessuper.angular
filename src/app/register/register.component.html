@@ -1,0 +1,28 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h3>Formulaire d'enregistrement</h3>
+
+<form [formGroup]="form" (ngSubmit)="register()">
+    <label for="username"> Pseudo
+      <input type="text" id="username" formControlName="username">
+    </label>
+    <label for="email"> E-mail
+      <input type="email" id="email" formControlName="email">
+    </label>
+    <label for="pwd"> Mot de passe
+      <input type="password" id="pwd" formControlName="pwd">
+    </label>
+    <label for="confirm"> Confirmer le mot de passe
+      <input type="password" id="confirm" formControlName="confirm">
+    </label>
+    <div *ngIf="form.errors?.showError && (form.touched || form.dirty)" class="val-error">
+        Le mot de passe ne correspond pas à la confirmation.
+    </div>
+    <label>
+      <input type="submit" value="M'inscrire" [disabled]="form.invalid">
+    </label>
+  </form>

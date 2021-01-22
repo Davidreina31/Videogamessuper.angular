@@ -13,6 +13,8 @@ import { GamesComponent } from './games/games.component';
 
 import { QuestionsComponent } from './questions/questions.component';
 import { DetailsVideogamesComponent } from './details-videogames/details-videogames.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CreateCommentComponent } from './create-comment/create-comment.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +26,14 @@ import { DetailsVideogamesComponent } from './details-videogames/details-videoga
     FavoritesGamesComponent,
     GamesComponent,
     QuestionsComponent,
-    DetailsVideogamesComponent
+    DetailsVideogamesComponent,
+    CreateCommentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

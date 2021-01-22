@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, Subscribable } from 'rxjs';
 import { User } from '../models/user';
 
 @Injectable({
@@ -10,7 +11,10 @@ export class UserService {
 
   private _url: string = "http://localhost:5001/api/user/";
 
-  constructor(private _client: HttpClient) { }
+  constructor(
+    private _client: HttpClient,
+    private _router: Router
+    ) { }
 
   public getAll() : Observable<User[]>{
     return this._client.get<User[]>(this._url);
@@ -19,4 +23,8 @@ export class UserService {
     return this._client.get<User>(this._url + id);
   }
   
-}
+  public createUser(u: User) : Observable<void>{
+    return this._client.post<void>(this._url, u);
+    };
+  }
+

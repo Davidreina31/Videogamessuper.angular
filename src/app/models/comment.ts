@@ -6,6 +6,6 @@ export class Comment {
     public commentText: string;
     public commentDate: Date;
     public userId: number;
-    public plateform_videoGameId: number;
+    public videoGameId: number;
     public user: User;
 }

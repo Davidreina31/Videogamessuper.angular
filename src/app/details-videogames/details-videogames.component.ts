@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { tick } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Answer } from '../models/answer';
 import { Comment } from '../models/comment';
 import { Question } from '../models/question';
@@ -21,13 +22,16 @@ export class DetailsVideogamesComponent implements OnInit {
 
   videoGame: VideoGame;
   comments: Comment[] = [];
+  comment: Comment;
+  commentId: any;
   questions: Question[] = [];
   userName: any;
   videoGameId: any;
   userId: any;
   questionId: any;
   answers: Answer[] = [];
-  answerText : string;
+  answerText: string;
+  form: FormGroup;
 
 
   constructor(private _videoGameService: VideogameService,
@@ -35,7 +39,9 @@ export class DetailsVideogamesComponent implements OnInit {
     private _commentService: CommentService,
     private _questionService: QuestionService,
     private _userService: UserService,
-    private _answerService: AnswerService
+    private _answerService: AnswerService,
+    private _builder: FormBuilder,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -49,12 +55,18 @@ export class DetailsVideogamesComponent implements OnInit {
     this._commentService.getCommentFromVideoGameId(this.videoGameId).subscribe(
       (data: Comment[]) => {
         this.comments = data;
-        this.comments.forEach(c=>{
+        this.comments.forEach(c => {
           this._userService.getOne(c.userId).subscribe(
             (dataComment) => c.user = dataComment
           )
         })
       })
+
+    this.form = this._builder.group({
+      note: ['', [Validators.required]],
+      comment: ['', [Validators.required]]
+    })
+
 
     this._questionService.getAllFromVideoGame(this.videoGameId).subscribe(
       (data: Question[]) => {
@@ -66,9 +78,9 @@ export class DetailsVideogamesComponent implements OnInit {
             this._answerService.getAllFromOneQuestion(q.questionId).subscribe(
               (dataAnswers) => {
                 q.answers = dataAnswers;
-                q.answers.forEach(a=>{
+                q.answers.forEach(a => {
                   this._userService.getOne(a.userId).subscribe(
-                    (dataAnswers)=>a.user = dataAnswers
+                    (dataAnswers) => a.user = dataAnswers
                   )
                 })
               })
@@ -76,6 +88,27 @@ export class DetailsVideogamesComponent implements OnInit {
       }
     )
 
+  }
+
+  public insertComment() {
+    if (this.form.valid) {
+      this.comment = new Comment();
+      this.comment.userId = 1;
+      this.comment.note = this.form.controls['note'].value;
+      this.comment.commentText = this.form.controls['comment'].value;
+      this.comment.videoGameId = this.videoGameId;
+      this._commentService.createComment(this.comment).subscribe({
+        next: () => this._router.navigate(["/games"]),
+        error: (error) => console.log(error)
+      })
+    }
+  }
+
+  public deleteComment(id: number) {
+    this._commentService.deleteComment(id).subscribe({
+      next: () => this._router.navigate(["/games"]),
+      error: (error) => console.log('Error')
+    })
   }
 
 

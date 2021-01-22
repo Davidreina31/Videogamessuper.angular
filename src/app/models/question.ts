@@ -6,7 +6,7 @@ export class Question {
     public questionText: string;
     public questionDate: Date;
     public userId: number;
-    public plateform_videoGameId: number;
+    public videoGameId: number;
     public user: User;
     public answers : Answer[]
 }
