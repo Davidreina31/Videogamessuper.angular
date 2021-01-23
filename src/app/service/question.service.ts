@@ -23,4 +23,8 @@ export class QuestionService {
   public createQuestion(q: Question): Observable<void>{
     return this._client.post<void>(this._url, q);
   }
+
+  public deleteQuestion (id: number): Observable<void>{
+    return this._client.delete<void>(this._url + id);
+  }
 }

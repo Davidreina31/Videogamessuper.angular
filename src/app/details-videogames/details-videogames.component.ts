@@ -119,7 +119,7 @@ export class DetailsVideogamesComponent implements OnInit {
   public deleteComment(id: number) {
     this._commentService.deleteComment(id).subscribe({
       next: () => this._router.navigate(["/games"]),
-      error: (error) => console.log('Error')
+      error: (error) => console.log(error)
     })
   }
 
@@ -147,6 +147,13 @@ export class DetailsVideogamesComponent implements OnInit {
         error: (error) => console.log(error)
       })
     }
+  }
+
+  public deleteQuestion(id: number){
+    this._questionService.deleteQuestion(id).subscribe({
+      next : ()=> this._router.navigate(["/games"]),
+      error : (error)=> console.log(error)
+    })
   }
 
 

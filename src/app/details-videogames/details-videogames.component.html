@@ -14,9 +14,6 @@
 <h5>Date de sortie :</h5>
 <p>{{videoGame.releaseDate | date}}</p>
 
-
-
-
 <hr>
 <h4>Commentaires : </h4>
 <br>
@@ -31,25 +28,29 @@
         <i class="fa fa-calendar"></i>
         {{item.commentDate | date}}
     </h5>
+    
     <p class="description">{{item.commentText}}</p>
     <label>
         <input type="button" value="Supprimer" (click)="deleteComment(item.commentId)">
-      </label>
+    </label>
+    <a [routerLink]="['/detailscomment/' + item.commentId]">Signaler</a>
 </div>
 
 <hr>
 <h4>Ajouter un commentaire</h4>
 <br>
 <form [formGroup]="form" (ngSubmit)="insertComment()">
-    <label for="note"> Note /20
-        <input type="number" id="note" formControlName="note">
+    <label for="note">
+        <input type="number" id="note" placeholder="note /20" formControlName="note">
     </label>
-    <label for="comment"> Commentaire
-        <input type="text" id="comment" formControlName="comment">
+    <br>
+    <label for="comment">
+        <textarea cols="40" rows="5" id="comment" placeholder="votre commentaire" formControlName="comment"></textarea>
     </label>
+    <br>
     <label>
         <input type="submit" value="Envoyer" [disabled]="form.invalid">
-      </label>
+    </label>
 </form>
 <br>
 <hr>
@@ -67,13 +68,17 @@
         <p>{{a.answerDate | date}}</p>
         <p>R : {{a.answerText}}</p>
     </div>
+    <label>
+        <input type="button" value="Supprimer" (click)="deleteQuestion(item.questionId)">
+    </label>
     <form [formGroup]="formAnswer" (ngSubmit)="insertAnswer(item.questionId)">
-        <label for="answer"> <h5>Répondre</h5>
-            <input type="text" id="answer" formControlName="answer">
+        <label for="answer">
+            <h5>Répondre</h5>
+            <textarea cols="40" rows="2" id="answer" placeholder="votre réponse" formControlName="answer"></textarea>
         </label>
         <label>
             <input type="submit" value="Envoyer" [disabled]="formAnswer.invalid">
-          </label>
+        </label>
     </form>
 </div>
 
@@ -81,10 +86,10 @@
 <h4>Ajouter une question</h4>
 <br>
 <form [formGroup]="formQuestion" (ngSubmit)="insertQuestion()">
-    <label for="question"> Question
-        <input type="text" id="question" formControlName="question">
+    <label for="question">
+        <textarea cols="40" rows="2" id="question" placeholder="posez votre question" formControlName="question"></textarea>
     </label>
     <label>
         <input type="submit" value="Envoyer" [disabled]="formQuestion.invalid">
-      </label>
+    </label>
 </form>

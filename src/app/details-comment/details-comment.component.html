@@ -1,0 +1,30 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h1>FORMULAIRE DE SIGNALEMENT</h1>
+<br>
+<br>
+<h4>
+    Pseudo : <a class="username">{{comment.user.userName}}</a>
+    <br>
+</h4>
+<h5>Note :</h5> <p>{{comment.note}}/20</p>
+<h5>Date :</h5> <p>{{comment.commentDate | date}}</p>
+<h5>Commentaire :</h5> <p>{{comment.commentText}}</p>
+<h5>Jeux-vidéo :</h5> <p>{{comment.videoGame.name}}</p>
+<br>
+<br>
+<form [formGroup]="form" (ngSubmit)="insertReport()">
+    <label for="report">
+        <textarea cols="40" rows="5" id="report" placeholder="raisons de votre signalement" formControlName="report"></textarea>
+    </label>
+    <label>
+        <input type="submit" value="Envoyer" [disabled]="form.invalid">
+    </label>
+</form>
+

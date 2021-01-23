@@ -1,0 +1,34 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Utilisateur signalé</th>
+        <th scope="col">Utilisateur le signalant</th>
+        <th scope="col">Commentaire</th>
+        <th scope="col">Jeux</th>
+        <th scope="col">Raison</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <div>
+        
+      </div>
+      <tr *ngFor="let item of report">
+        <th scope="row">{{item.reportId}}</th>
+        <td>{{item.comment.user.userName}}</td>
+        <td>{{item.reporterUser.userName}}</td>
+        <td>{{item.comment.commentText}}</td>
+        <td>{{item.comment.videoGame.name}}</td>
+        <td>{{item.reason}}</td>
+        <td><input type="button" value="Supprimer" (click)="deleteReport(item.reportId)"></td>
+      </tr>
+    </tbody>
+  </table>

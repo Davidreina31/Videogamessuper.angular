@@ -15,6 +15,8 @@ import { QuestionsComponent } from './questions/questions.component';
 import { DetailsVideogamesComponent } from './details-videogames/details-videogames.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateCommentComponent } from './create-comment/create-comment.component';
+import { ReportComponent } from './report/report.component';
+import { DetailsCommentComponent } from './details-comment/details-comment.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { CreateCommentComponent } from './create-comment/create-comment.componen
     GamesComponent,
     QuestionsComponent,
     DetailsVideogamesComponent,
-    CreateCommentComponent
+    CreateCommentComponent,
+    ReportComponent,
+    DetailsCommentComponent
   ],
   imports: [
     BrowserModule,

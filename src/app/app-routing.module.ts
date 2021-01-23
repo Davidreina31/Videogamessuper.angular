@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DetailsCommentComponent } from './details-comment/details-comment.component';
 import { DetailsVideogamesComponent } from './details-videogames/details-videogames.component';
 import { FavoritesGamesComponent } from './favorites-games/favorites-games.component';
 import { GamesComponent } from './games/games.component';
@@ -7,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { RegisterComponent } from './register/register.component';
+import { ReportComponent } from './report/report.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,14 @@ const routes: Routes = [
   {
     path: 'detailsvg/:id',
     component: DetailsVideogamesComponent
+  },
+  {
+    path: 'report',
+    component: ReportComponent
+  },
+  {
+    path: 'detailscomment/:id',
+    component: DetailsCommentComponent
   }
 ];
 

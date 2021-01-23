@@ -16,6 +16,10 @@ export class CommentService {
     return this._client.get<Comment[]>(this._url + id);
   }
 
+  public getOne(id: number): Observable<Comment>{
+    return this._client.get<Comment>("http://localhost:5001/api/Comment?id=" + id);
+  }
+
   public createComment(c: Comment): Observable<void> {
     return this._client.post<void>(this._url, c);
   }
