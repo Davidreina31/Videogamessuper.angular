@@ -6,9 +6,11 @@ import { Answer } from '../models/answer';
 import { Comment } from '../models/comment';
 import { Question } from '../models/question';
 import { User } from '../models/user';
+import { UserVideoGame } from '../models/user-video-game';
 import { VideoGame } from '../models/video-game';
 import { AnswerService } from '../service/answer.service';
 import { CommentService } from '../service/comment.service';
+import { FavoritesGamesService } from '../service/favorites-games.service';
 import { QuestionService } from '../service/question.service';
 import { UserService } from '../service/user.service';
 import { VideogameService } from '../service/videogame.service';
@@ -21,6 +23,7 @@ import { VideogameService } from '../service/videogame.service';
 export class DetailsVideogamesComponent implements OnInit {
 
   videoGame: VideoGame;
+  userVideoGame: UserVideoGame;
   comments: Comment[] = [];
   comment: Comment;
   commentId: any;
@@ -44,6 +47,7 @@ export class DetailsVideogamesComponent implements OnInit {
     private _questionService: QuestionService,
     private _userService: UserService,
     private _answerService: AnswerService,
+    private _favoritesGamesService: FavoritesGamesService,
     private _builder: FormBuilder,
     private _router: Router
   ) { }
@@ -136,8 +140,8 @@ export class DetailsVideogamesComponent implements OnInit {
     }
   }
 
-  public insertAnswer(id: number){
-    if(this.formAnswer.valid){
+  public insertAnswer(id: number) {
+    if (this.formAnswer.valid) {
       this.answer = new Answer();
       this.answer.userId = 16;
       this.answer.answerText = this.formAnswer.controls['answer'].value;
@@ -149,10 +153,20 @@ export class DetailsVideogamesComponent implements OnInit {
     }
   }
 
-  public deleteQuestion(id: number){
+  public deleteQuestion(id: number) {
     this._questionService.deleteQuestion(id).subscribe({
-      next : ()=> this._router.navigate(["/games"]),
-      error : (error)=> console.log(error)
+      next: () => this._router.navigate(["/games"]),
+      error: (error) => console.log(error)
+    })
+  }
+
+  public addVideoGame() {
+    this.userVideoGame = new UserVideoGame();
+    this.userVideoGame.userId = 3;
+    this.userVideoGame.videoGameId = this.videoGameId;
+    this._favoritesGamesService.AddVideoGame(this.userVideoGame).subscribe({
+      next: () => this._router.navigate(["/favorites-games"]),
+      error: (error) => console.log(error)
     })
   }
 
