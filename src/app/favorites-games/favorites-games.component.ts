@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserVideoGame } from '../models/user-video-game';
 import { VideoGame } from '../models/video-game';
 import { FavoritesGamesService } from '../service/favorites-games.service';
@@ -10,14 +11,31 @@ import { FavoritesGamesService } from '../service/favorites-games.service';
 })
 export class FavoritesGamesComponent implements OnInit {
 
-  userVideoGames: VideoGame[] = [];
+  videoGamesFavorites: VideoGame[] = [];
+  userVideoGame: UserVideoGame[] = [];
 
-  constructor(private _favoritesGamesService: FavoritesGamesService) { }
+
+  constructor(
+    private _favoritesGamesService: FavoritesGamesService,
+    private _router: Router
+  ) { }
 
   ngOnInit(): void {
-    this._favoritesGamesService.getVideoGamesByUserId(3).subscribe(
-      (data) => this.userVideoGames = data
+
+    this._favoritesGamesService.getAllByUser(1).subscribe(
+      (dataUv) => this.userVideoGame = dataUv
     )
+
+    this._favoritesGamesService.getVideoGamesByUserId(1).subscribe(
+      (data) => this.videoGamesFavorites = data
+    )
+  }
+
+  public deleteVideoGame(id: number) {
+    this._favoritesGamesService.deleteVideoGame(id).subscribe({
+      next: () => this._router.navigate(["/home"]),
+      error: (error) => console.log(error)
+    })
   }
 
 }

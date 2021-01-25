@@ -1,1 +1,17 @@
-<p>login works!</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<form [formGroup]="form" (ngSubmit)="login()">
+    <label for="username"> Pseudo
+      <input type="text" id="username" formControlName="username">
+    </label>
+    <label for="pwd"> Mot de passe
+      <input type="password" id="pwd" formControlName="pwd">
+    </label>
+    <label>
+      <input type="submit" value="Me connecter" [disabled]="form.invalid">
+    </label>
+  </form>

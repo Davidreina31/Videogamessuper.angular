@@ -5,9 +5,15 @@
 <br>
 <br>
 <div class="container">
-    <article class="container-fluid" *ngFor="let item of userVideoGames">
+    <article class="container-fluid" *ngFor="let item of videoGamesFavorites">
         <img src="{{item.jacketUrl}}" alt="" width="180" height="230">
         <h5><a [routerLink]="['/detailsvg/' + item.videoGameId]">{{item.name}}</a></h5>
-        <p> </p>
+        
     </article>
+    <div *ngFor="let item of userVideoGame">
+        <label>
+            <input type="button" value="Supprimer" (click)="deleteVideoGame(item.user_VideoGame_id)">
+        </label>
+    </div>
+    
 </div>

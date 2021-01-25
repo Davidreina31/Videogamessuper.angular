@@ -162,7 +162,7 @@ export class DetailsVideogamesComponent implements OnInit {
 
   public addVideoGame() {
     this.userVideoGame = new UserVideoGame();
-    this.userVideoGame.userId = 3;
+    this.userVideoGame.userId = 1;
     this.userVideoGame.videoGameId = this.videoGameId;
     this._favoritesGamesService.AddVideoGame(this.userVideoGame).subscribe({
       next: () => this._router.navigate(["/favorites-games"]),

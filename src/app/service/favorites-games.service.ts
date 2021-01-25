@@ -13,8 +13,8 @@ export class FavoritesGamesService {
 
   constructor(private _client: HttpClient) { }
 
-  public getAll(): Observable<UserVideoGame[]>{
-    return this._client.get<UserVideoGame[]>(this._url);
+  public getAllByUser(id: number): Observable<UserVideoGame[]>{
+    return this._client.get<UserVideoGame[]>("http://localhost:5001/api/User_VideoGame_?id=" + id);
   }
 
   public getVideoGamesByUserId(id: number): Observable<VideoGame[]>{
