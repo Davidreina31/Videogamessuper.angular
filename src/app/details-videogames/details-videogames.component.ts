@@ -12,6 +12,7 @@ import { AnswerService } from '../service/answer.service';
 import { CommentService } from '../service/comment.service';
 import { FavoritesGamesService } from '../service/favorites-games.service';
 import { QuestionService } from '../service/question.service';
+import { SessionService } from '../service/session.service';
 import { UserService } from '../service/user.service';
 import { VideogameService } from '../service/videogame.service';
 
@@ -49,6 +50,7 @@ export class DetailsVideogamesComponent implements OnInit {
     private _answerService: AnswerService,
     private _favoritesGamesService: FavoritesGamesService,
     private _builder: FormBuilder,
+    private _sessionService: SessionService,
     private _router: Router
   ) { }
 
@@ -109,7 +111,7 @@ export class DetailsVideogamesComponent implements OnInit {
   public insertComment() {
     if (this.form.valid) {
       this.comment = new Comment();
-      this.comment.userId = 1;
+      this.comment.userId = this._sessionService.getUserId();
       this.comment.note = this.form.controls['note'].value;
       this.comment.commentText = this.form.controls['comment'].value;
       this.comment.videoGameId = this.videoGameId;
@@ -130,7 +132,7 @@ export class DetailsVideogamesComponent implements OnInit {
   public insertQuestion() {
     if (this.formQuestion.valid) {
       this.question = new Question();
-      this.question.userId = 13;
+      this.question.userId = this._sessionService.getUserId();
       this.question.questionText = this.formQuestion.controls['question'].value;
       this.question.videoGameId = this.videoGameId;
       this._questionService.createQuestion(this.question).subscribe({
@@ -143,7 +145,7 @@ export class DetailsVideogamesComponent implements OnInit {
   public insertAnswer(id: number) {
     if (this.formAnswer.valid) {
       this.answer = new Answer();
-      this.answer.userId = 16;
+      this.answer.userId = this._sessionService.getUserId();
       this.answer.answerText = this.formAnswer.controls['answer'].value;
       this.answer.questionId = id;
       this._answerService.createAnswer(this.answer).subscribe({
@@ -162,7 +164,7 @@ export class DetailsVideogamesComponent implements OnInit {
 
   public addVideoGame() {
     this.userVideoGame = new UserVideoGame();
-    this.userVideoGame.userId = 1;
+    this.userVideoGame.userId = this._sessionService.getUserId();
     this.userVideoGame.videoGameId = this.videoGameId;
     this._favoritesGamesService.AddVideoGame(this.userVideoGame).subscribe({
       next: () => this._router.navigate(["/favorites-games"]),

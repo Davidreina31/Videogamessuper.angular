@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CreateCommentComponent } from './create-comment/create-comment.component';
 import { ReportComponent } from './report/report.component';
 import { DetailsCommentComponent } from './details-comment/details-comment.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { InterceptorService } from './service/interceptor.service';
+
+export function tokenGetter() {
+  return sessionStorage.getItem("jwt");
+}
 
 @NgModule({
   declarations: [
@@ -37,9 +43,21 @@ import { DetailsCommentComponent } from './details-comment/details-comment.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains:["localhost:4200"],
+        disallowedRoutes:[]
+      }
+    })
+
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

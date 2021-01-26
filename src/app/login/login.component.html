@@ -4,14 +4,21 @@
 <br>
 <br>
 <br>
-<form [formGroup]="form" (ngSubmit)="login()">
-    <label for="username"> Pseudo
-      <input type="text" id="username" formControlName="username">
+<div class="container login-container">
+
+
+<form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+    <label for="email"> E-mail
+      <input type="text" id="email" formControlName="email">
     </label>
     <label for="pwd"> Mot de passe
       <input type="password" id="pwd" formControlName="pwd">
     </label>
     <label>
-      <input type="submit" value="Me connecter" [disabled]="form.invalid">
+      <input type="submit" value="Me connecter" [disabled]="loginForm.invalid">
     </label>
+    <div>
+      <span class="text-danger" *ngIf="invalidLogin">{{errorMsg}}</span>
+    </div>
   </form>
+</div>

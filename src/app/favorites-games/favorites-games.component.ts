@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserVideoGame } from '../models/user-video-game';
 import { VideoGame } from '../models/video-game';
 import { FavoritesGamesService } from '../service/favorites-games.service';
+import { SessionService } from '../service/session.service';
 
 @Component({
   selector: 'app-favorites-games',
@@ -17,16 +18,17 @@ export class FavoritesGamesComponent implements OnInit {
 
   constructor(
     private _favoritesGamesService: FavoritesGamesService,
+    private _sessionService: SessionService,
     private _router: Router
   ) { }
 
   ngOnInit(): void {
 
-    this._favoritesGamesService.getAllByUser(1).subscribe(
+    this._favoritesGamesService.getAllByUser(this._sessionService.getUserId()).subscribe(
       (dataUv) => this.userVideoGame = dataUv
     )
 
-    this._favoritesGamesService.getVideoGamesByUserId(1).subscribe(
+    this._favoritesGamesService.getVideoGamesByUserId(this._sessionService.getUserId()).subscribe(
       (data) => this.videoGamesFavorites = data
     )
   }
