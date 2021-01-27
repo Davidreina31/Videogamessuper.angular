@@ -6,9 +6,11 @@
 <br>
 
 <img src="{{videoGame.jacketUrl}}" class="center" width="200" height="270" alt="">
-<label>
-    <input type="button" value="Ajouter aux favoris" (click)="addVideoGame()">
-</label>
+<div *ngIf="isLogged == true">
+    <label>
+        <input type="button" value="Ajouter aux favoris" (click)="addVideoGame()">
+    </label>
+</div>
 <h4>{{videoGame.name}}</h4>
 <br>
 <h5>Description :</h5>
@@ -16,83 +18,122 @@
 <p>
 <h5>Date de sortie :</h5>
 <p>{{videoGame.releaseDate | date}}</p>
+<h5>Développeur :</h5>
+<p>{{videoGame.developer.name}}</p>
+<h5>Distributeur :</h5>
+<p>{{videoGame.publisher.name}}</p>
+<h5>Plateformes disponibles :</h5>
+<p *ngFor="let item of videoGame.plateforms">{{item.plateformName}}</p>
 
 <hr>
 <h4>Commentaires : </h4>
 <br>
 <div *ngFor="let item of comments">
 
-    <h4>
-        <a class="username">{{item.user.userName}}</a>
-        <br>
-        {{item.note}}/20
-    </h4>
-    <h5>
-        <i class="fa fa-calendar"></i>
-        {{item.commentDate | date}}
-    </h5>
-    
-    <p class="description">{{item.commentText}}</p>
-    <label>
-        <input type="button" value="Supprimer" (click)="deleteComment(item.commentId)">
-    </label>
-    <a [routerLink]="['/detailscomment/' + item.commentId]">Signaler</a>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="media g-mb-30 media-comment">
+                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                        src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+                    <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                        <div class="g-mb-15">
+                            <h5 class="username"><a class="username">{{item.user.userName}}</a></h5>
+
+                            <h4>
+                                {{item.note}}/20
+                            </h4>
+
+                            <span class="g-color-gray-dark-v4 g-font-size-12">{{item.commentDate | date}}</span>
+
+                            <p class="description">{{item.commentText}}</p>
+                            <label *ngIf="item.userId == this._sessionService.getUserId() || this._sessionService.getUserRole()=='Admin'">
+                                <input type="button" class="btn-danger" value="supprimer commentaire"
+                                    (click)="deleteComment(item.commentId)">
+                            </label>
+                            <div *ngIf="isLogged == true">
+                                <a [routerLink]="['/detailscomment/' + item.commentId]">Signaler</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <hr>
-<h4>Ajouter un commentaire</h4>
-<br>
-<form [formGroup]="form" (ngSubmit)="insertComment()">
-    <label for="note">
-        <input type="number" id="note" placeholder="note /20" formControlName="note">
-    </label>
+<div *ngIf="isLogged == true">
+    <h4>Ajouter un commentaire</h4>
     <br>
-    <label for="comment">
-        <textarea cols="40" rows="5" id="comment" placeholder="votre commentaire" formControlName="comment"></textarea>
-    </label>
-    <br>
-    <label>
-        <input type="submit" value="Envoyer" [disabled]="form.invalid">
-    </label>
-</form>
+    <form [formGroup]="form" (ngSubmit)="insertComment()">
+        <label for="note">
+            <input type="number" id="note" placeholder="note /20" formControlName="note">
+        </label>
+        <br>
+        <label for="comment">
+            <textarea cols="40" rows="5" id="comment" placeholder="votre commentaire"
+                formControlName="comment"></textarea>
+        </label>
+        <br>
+        <label>
+            <input type="submit" value="Envoyer" [disabled]="form.invalid">
+        </label>
+    </form>
+</div>
 <br>
 <hr>
 <br>
 
 <h3>Questions/réponses</h3>
 <br>
-<div *ngFor="let item of questions">
-    <p>{{item.user.userName}}</p>
-    <p>{{item.questionDate | date}}</p>
-    <p>{{item.questionText}}</p>
-
-    <div *ngFor="let a of item.answers">
-        <p>{{a.user.userName}}</p>
-        <p>{{a.answerDate | date}}</p>
-        <p>R : {{a.answerText}}</p>
-    </div>
-    <label>
-        <input type="button" value="Supprimer" (click)="deleteQuestion(item.questionId)">
+<div class="border border-info" *ngFor="let item of questions">
+    <h5 class="username"><a class="username">{{item.user.userName}}</a></h5>
+    
+    <span class="g-color-gray-dark-v4 g-font-size-12">{{item.questionDate | date}}</span>
+    <p class="description">{{item.questionText}}</p>
+    <label *ngIf="item.userId == this._sessionService.getUserId() || this._sessionService.getUserRole() == 'Admin'">
+        <input type="button" class="btn-danger" value="supprimer question" (click)="deleteQuestion(item.questionId)">
     </label>
-    <form [formGroup]="formAnswer" (ngSubmit)="insertAnswer(item.questionId)">
-        <label for="answer">
-            <h5>Répondre</h5>
-            <textarea cols="40" rows="2" id="answer" placeholder="votre réponse" formControlName="answer"></textarea>
+    <div style="text-align: center;" class="border border-success" *ngFor="let a of item.answers">
+        <h5 class="username-answer"><a class="username-answer">{{a.user.userName}}</a></h5>
+        <span class="g-color-gray-dark-v4 g-font-size-12">{{a.answerDate | date}}</span>
+        <p class="description">{{a.answerText}}</p>
+        <div *ngIf="a.userId == this._sessionService.getUserId() || this._sessionService.getUserRole() == 'Admin'">
+            <input type="button" class="btn-danger" value="supprimer réponse" (click)="deleteAnswer(a.answerId)">
+        </div>
+    </div>
+    
+    <div *ngIf="isLogged == true">
+        <form [formGroup]="formAnswer" (ngSubmit)="insertAnswer(item.questionId)">
+            <label for="answer">
+                <h5>Répondre</h5>
+                <textarea cols="40" rows="2" id="answer" placeholder="votre réponse"
+                    formControlName="answer"></textarea>
+            </label>
+            <label>
+                <input type="submit" value="Envoyer" [disabled]="formAnswer.invalid">
+            </label>
+        </form>
+    </div>
+</div>
+
+
+<div *ngIf="isLogged == true">
+    <hr>
+    <h4>Ajouter une question</h4>
+    <br>
+    <form [formGroup]="formQuestion" (ngSubmit)="insertQuestion()">
+        <label for="question">
+            <textarea cols="40" rows="2" id="question" placeholder="posez votre question"
+                formControlName="question"></textarea>
         </label>
         <label>
-            <input type="submit" value="Envoyer" [disabled]="formAnswer.invalid">
+            <input type="submit" value="Envoyer" [disabled]="formQuestion.invalid">
         </label>
     </form>
 </div>
-
-<hr>
-<h4>Ajouter une question</h4>
-<br>
-<form [formGroup]="formQuestion" (ngSubmit)="insertQuestion()">
-    <label for="question">
-        <textarea cols="40" rows="2" id="question" placeholder="posez votre question" formControlName="question"></textarea>
-    </label>
-    <label>
-        <input type="submit" value="Envoyer" [disabled]="formQuestion.invalid">
-    </label>
-</form>

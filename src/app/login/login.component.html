@@ -4,15 +4,13 @@
 <br>
 <br>
 <br>
-<div class="container login-container">
-
-
+<!-- <div class="container login-container">
 <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
-    <label for="email"> E-mail
-      <input type="text" id="email" formControlName="email">
+    <label for="email">
+      <input type="text" id="email" placeholder="adresse e-mail" formControlName="email">
     </label>
-    <label for="pwd"> Mot de passe
-      <input type="password" id="pwd" formControlName="pwd">
+    <label for="pwd">
+      <input type="password" id="pwd" placeholder="mot de passe" formControlName="pwd">
     </label>
     <label>
       <input type="submit" value="Me connecter" [disabled]="loginForm.invalid">
@@ -21,4 +19,46 @@
       <span class="text-danger" *ngIf="invalidLogin">{{errorMsg}}</span>
     </div>
   </form>
+</div> -->
+
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+  <div class="card card0 border-0">
+    <div class="row d-flex">
+      <div class="col-lg-6">
+        <div class="card1 pb-5">
+          <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img
+              src="https://i.pinimg.com/originals/16/21/f3/1621f3904efc592374ca608ec8a384bc.jpg" class="image"> </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card2 card border-0 px-4 py-5">
+          <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+            <div class="row px-3">
+              <label class="mb-1" for="email">
+                <h6 class="mb-0 text-sm">Adresse e-mail</h6>
+                <input type="text" class="mb-4" id="email" placeholder="adresse e-mail" formControlName="email">
+              </label>
+            </div>
+            <div class="row px-3">
+              <label class="mb-1" for="pwd">
+                <h6 class="mb-0 text-sm">Mot de passe</h6>
+                <input type="password" id="pwd" placeholder="mot de passe" formControlName="pwd">
+              </label>
+            </div>
+            <div class="row mb-3 px-3">
+              <label>
+                <input type="submit" class="btn btn-blue text-center" value="Me connecter" [disabled]="loginForm.invalid">
+              </label>
+            </div>
+            <div>
+              <span class="text-danger" *ngIf="invalidLogin">{{errorMsg}}</span>
+            </div>
+          </form>
+
+          <div class="row mb-4 px-3"> <small class="font-weight-bold">Vous n'avez pas encore de compte ? <a
+                class="text-danger " routerLink="/register">S'inscrire</a></small> </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

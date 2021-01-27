@@ -19,4 +19,8 @@ export class AnswerService {
   public createAnswer(a: Answer): Observable<void>{
     return this._client.post<void>(this._url, a);
   }
+
+  public deleteAnswer(id: number): Observable<void>{
+    return this._client.delete<void>(this._url + id);
+  }
 }

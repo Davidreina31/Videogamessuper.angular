@@ -1,23 +1,24 @@
+
 <br>
 <br>
 <br>
 <br>
-<br>
-<br>
+
+<!-- <br>
 <h3>Formulaire d'enregistrement</h3>
 
-<form [formGroup]="form" (ngSubmit)="register()">
-    <label for="username"> Pseudo
-      <input type="text" id="username" formControlName="username">
+<form class="form_group" [formGroup]="form" (ngSubmit)="register()">
+    <label for="username">
+      <input type="text" placeholder="pseudo" id="username" formControlName="username">
     </label>
-    <label for="email"> E-mail
-      <input type="email" id="email" formControlName="email">
+    <label for="email">
+      <input type="email" placeholder="email" id="email" formControlName="email">
     </label>
-    <label for="pwd"> Mot de passe
-      <input type="password" id="pwd" formControlName="pwd">
+    <label for="pwd">
+      <input type="password" placeholder="mot de passe" id="pwd" formControlName="pwd">
     </label>
-    <label for="confirm"> Confirmer le mot de passe
-      <input type="password" id="confirm" formControlName="confirm">
+    <label for="confirm">
+      <input type="password" placeholder="confirmer mot de passe" id="confirm" formControlName="confirm">
     </label>
     <div *ngIf="form.errors?.showError && (form.touched || form.dirty)" class="val-error">
         Le mot de passe ne correspond pas à la confirmation.
@@ -25,4 +26,56 @@
     <label>
       <input type="submit" value="M'inscrire" [disabled]="form.invalid">
     </label>
-  </form>
+  </form> -->
+
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-xl-9 mx-auto">
+          <div class="card card-signin flex-row my-5">
+            <div class="card-img-left d-none d-md-flex">
+               <!-- Background image for card set in CSS! -->
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-center">Formulaire d'inscription</h5>
+
+              <form class="form_group" [formGroup]="form" (ngSubmit)="register()">
+                <div class="form-label-group">
+                  <label for="username"></label>
+                  <input type="text" class="form-control" placeholder="pseudo" id="username" formControlName="username" >
+                </div>
+  
+                <div class="form-label-group">
+                  <label for="email"></label>
+                  <input type="email" id="email" class="form-control" placeholder="email" formControlName="email">
+                  
+                </div>
+                
+                <hr>
+  
+                <div class="form-label-group">
+                  <label for="pwd"></label>
+                  <input type="password" id="pwd" class="form-control" placeholder="mot de passe" formControlName="pwd" >
+                  
+                </div>
+                
+                <div class="form-label-group">
+                  <label for="confirm"></label>
+                  <input type="password" id="confirm" class="form-control" placeholder="confirmation du mot de passe" formControlName="confirm">
+                  
+                </div>
+                <div *ngIf="form.errors?.showError && (form.touched || form.dirty)" class="val-error">
+                  Le mot de passe ne correspond pas à la confirmation.
+              </div>
+              <br>
+              <label>
+                <input type="submit" class="btn btn-lg btn-primary btn-block text-uppercase" value="M'inscrire" [disabled]="form.invalid">
+              </label>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>

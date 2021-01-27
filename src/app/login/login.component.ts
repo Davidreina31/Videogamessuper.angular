@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   decryptedToken: any;
   errorMsg: string;
+  currentUrl: string;
 
 
   constructor(
@@ -42,11 +43,14 @@ export class LoginComponent implements OnInit {
     this._loginService.userLogin(credentials).subscribe(response =>
       {
         this.EncodingTokenInSession(response);
+        
       }, err =>{
         this.invalidLogin = true;      
-        this.errorMsg = "Email ou mot de passe invalide";
+        this.errorMsg = "adresse e-mail ou mot de passe incorrect";
       });
   }
+
+  
 
   private EncodingTokenInSession(response: any) : void {    
     const token = (<any>response).token;
@@ -62,6 +66,7 @@ export class LoginComponent implements OnInit {
       );           
     sessionStorage.setItem("userInfo",JSON.stringify(this._sessionService.connectedUser));
     this._router.navigate(["/home"]);
+    
   }
 
 }

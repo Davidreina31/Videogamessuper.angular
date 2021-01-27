@@ -50,7 +50,7 @@ export class DetailsVideogamesComponent implements OnInit {
     private _answerService: AnswerService,
     private _favoritesGamesService: FavoritesGamesService,
     private _builder: FormBuilder,
-    private _sessionService: SessionService,
+    public _sessionService: SessionService,
     private _router: Router
   ) { }
 
@@ -108,6 +108,8 @@ export class DetailsVideogamesComponent implements OnInit {
 
   }
 
+  isLogged: boolean = this._sessionService.isLogged();
+
   public insertComment() {
     if (this.form.valid) {
       this.comment = new Comment();
@@ -116,7 +118,7 @@ export class DetailsVideogamesComponent implements OnInit {
       this.comment.commentText = this.form.controls['comment'].value;
       this.comment.videoGameId = this.videoGameId;
       this._commentService.createComment(this.comment).subscribe({
-        next: () => this._router.navigate(["/games"]),
+        next: () => location.reload(),
         error: (error) => console.log(error)
       })
     }
@@ -124,10 +126,11 @@ export class DetailsVideogamesComponent implements OnInit {
 
   public deleteComment(id: number) {
     this._commentService.deleteComment(id).subscribe({
-      next: () => this._router.navigate(["/games"]),
+      next: () => location.reload(),
       error: (error) => console.log(error)
     })
   }
+
 
   public insertQuestion() {
     if (this.formQuestion.valid) {
@@ -136,7 +139,7 @@ export class DetailsVideogamesComponent implements OnInit {
       this.question.questionText = this.formQuestion.controls['question'].value;
       this.question.videoGameId = this.videoGameId;
       this._questionService.createQuestion(this.question).subscribe({
-        next: () => this._router.navigate(["/games"]),
+        next: () => location.reload(),
         error: (error) => console.log(error)
       })
     }
@@ -149,15 +152,22 @@ export class DetailsVideogamesComponent implements OnInit {
       this.answer.answerText = this.formAnswer.controls['answer'].value;
       this.answer.questionId = id;
       this._answerService.createAnswer(this.answer).subscribe({
-        next: () => this._router.navigate(["/games"]),
+        next: () => location.reload(),
         error: (error) => console.log(error)
       })
     }
   }
 
+  public deleteAnswer(id: number){
+    this._answerService.deleteAnswer(id).subscribe({
+      next: () => location.reload(),
+      error: (error) => console.log(error)
+    })
+  }
+
   public deleteQuestion(id: number) {
     this._questionService.deleteQuestion(id).subscribe({
-      next: () => this._router.navigate(["/games"]),
+      next: () => location.reload(),
       error: (error) => console.log(error)
     })
   }

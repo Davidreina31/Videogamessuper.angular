@@ -5,6 +5,7 @@ import { Comment } from '../models/comment';
 import { Report } from '../models/report';
 import { CommentService } from '../service/comment.service';
 import { ReportService } from '../service/report.service';
+import { SessionService } from '../service/session.service';
 import { UserService } from '../service/user.service';
 import { VideogameService } from '../service/videogame.service';
 
@@ -27,6 +28,7 @@ export class DetailsCommentComponent implements OnInit {
     private _videoGameService: VideogameService,
     private _builder: FormBuilder,
     private _reportService: ReportService,
+    private _sessionService: SessionService,
     private _router: Router
   ) { }
 
@@ -53,7 +55,7 @@ export class DetailsCommentComponent implements OnInit {
     if (this.form.valid) {
       this.report = new Report();
       this.report.commentId = this.commentId;
-      this.report.reporterUserId = 7;
+      this.report.reporterUserId = this._sessionService.getUserId();
       this.report.reason = this.form.controls['report'].value;
       this._reportService.createReport(this.report).subscribe({
         next: () => this._router.navigate(["/detailsvg/" + this.comment.videoGameId]),

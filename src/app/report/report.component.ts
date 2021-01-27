@@ -52,7 +52,7 @@ export class ReportComponent implements OnInit {
 
   public deleteReport(id: number) {
     this._reportService.deleteReport(id).subscribe({
-      next: () => this._router.navigate(["/games"]),
+      next: () => location.reload(),
       error: (error) => console.log(error)
     })
   }

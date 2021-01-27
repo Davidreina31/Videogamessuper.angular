@@ -1,3 +1,7 @@
+import { Developer } from "./developer";
+import { Plateform } from "./plateform";
+import { Publisher } from "./publisher";
+
 export class VideoGame {
     public videoGameId: number;
     public name: string;
@@ -6,4 +10,7 @@ export class VideoGame {
     public developerId: number;
     public publisherId: number;
     public jacketUrl: string;
+    public plateforms: Plateform[];
+    public developer: Developer;
+    public publisher: Publisher;
 }

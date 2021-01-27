@@ -30,6 +30,25 @@ export class SessionService {
     return null;
   }
 
+  public getUserName(): string{
+    if(sessionStorage.getItem("userInfo") != null)
+    {
+      let userName;
+      userName = JSON.parse(sessionStorage.getItem("userInfo"))
+      return userName["userName"];
+    }
+    return null;
+  }
+
+  public isLogged(): boolean{
+    if(sessionStorage.getItem("userInfo")!=null){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
   private _connectedUser: LoggedInfo;
 
   get connectedUser(): LoggedInfo{
