@@ -40,15 +40,16 @@ export class DetailsVideogamesComponent implements OnInit {
   form: FormGroup;
   formQuestion: FormGroup;
   formAnswer: FormGroup;
+  
 
 
   constructor(private _videoGameService: VideogameService,
-    private _route: ActivatedRoute,
+    public _route: ActivatedRoute,
     private _commentService: CommentService,
     private _questionService: QuestionService,
     private _userService: UserService,
     private _answerService: AnswerService,
-    private _favoritesGamesService: FavoritesGamesService,
+    public _favoritesGamesService: FavoritesGamesService,
     private _builder: FormBuilder,
     public _sessionService: SessionService,
     private _router: Router
@@ -181,6 +182,8 @@ export class DetailsVideogamesComponent implements OnInit {
       error: (error) => console.log(error)
     })
   }
+
+  
 
 
 }

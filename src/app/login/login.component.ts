@@ -29,6 +29,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if(this._sessionService.getUserId()!=undefined){
+      this._router.navigate(["/home"]);
+    }
     this.loginForm = this._builder.group({
       email: ['', Validators.required],
       pwd: ['', Validators.required]

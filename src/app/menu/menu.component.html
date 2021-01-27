@@ -10,25 +10,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <div *ngIf="isLogged==false">
+                <div *ngIf="!this._sessionService.isLogged()">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/register">M'inscrire</a></li>
                 </div>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                         routerLink="/games">Nos jeux</a></li>
-                <div *ngIf="isLogged == true">
+                <div *ngIf="this._sessionService.isLogged()">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/favorites-games">Mes jeux préférés</a></li>
                 </div>
-                <div *ngIf="isLogged==false">
+                <div *ngIf="!this._sessionService.isLogged()">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/login">Me connecter</a></li>
                 </div>
-                <div *ngIf="isLogged == true && role == 'Admin'">
+                <div *ngIf="this._sessionService.isLogged() && role == 'Admin'">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/report">Signalements</a></li>
                 </div>
-                <div *ngIf="isLogged == true">
+                <div *ngIf="this._sessionService.isLogged()">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">Bonjour {{this._sessionService.getUserName()}}</a> 
                     <input class="btn btn-primary btn-lg"  type="button" value="déconnexion" (click)="logout()">
                 </div>

@@ -18,7 +18,7 @@ export class FavoritesGamesComponent implements OnInit {
 
   constructor(
     private _favoritesGamesService: FavoritesGamesService,
-    private _sessionService: SessionService,
+    public _sessionService: SessionService,
     private _router: Router
   ) { }
 
@@ -33,11 +33,13 @@ export class FavoritesGamesComponent implements OnInit {
     )
   }
 
-  public deleteVideoGame(id: number) {
-    this._favoritesGamesService.deleteVideoGame(id).subscribe({
-      next: () => this._router.navigate(["/home"]),
+  public deleteVideoGame(userId: number, videoGameId: number) {
+    this._favoritesGamesService.deleteVideoGame(userId, videoGameId).subscribe({
+      next: () => location.reload(),
       error: (error) => console.log(error)
     })
   }
+
+ 
 
 }

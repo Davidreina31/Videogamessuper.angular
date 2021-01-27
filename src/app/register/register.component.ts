@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
+import { SessionService } from '../service/session.service';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -17,10 +18,16 @@ export class RegisterComponent implements OnInit {
   constructor(
     private _builder: FormBuilder,
     private _router: Router,
-    private _userService: UserService
+    private _userService: UserService,
+    private _sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
+
+    if(this._sessionService.getUserId()!=undefined){
+      this._router.navigate(["/home"]);
+    }
+
     this.form = this._builder.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required]],
@@ -47,6 +54,8 @@ export class RegisterComponent implements OnInit {
 
   }
 }
+
+
   export const confirmPasswordValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     const pwd = control.get('pwd').value;
     const confirm = control.get('confirm').value;

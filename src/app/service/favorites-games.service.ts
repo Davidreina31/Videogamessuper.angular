@@ -25,8 +25,12 @@ export class FavoritesGamesService {
     return this._client.post<void>(this._url, uv);
   }
 
-  public deleteVideoGame(id: number): Observable<void>{
-    return this._client.delete<void>(this._url + id);
+  public deleteVideoGame(userId: number, videoGameId: number): Observable<void>{
+    return this._client.delete<void>("http://localhost:5001/api/User_VideoGame_?UserId=" +userId+"&VideoGameId="+videoGameId);
   }
+
+  
+
+  
 
 }
