@@ -16,13 +16,17 @@
                 </div>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                         routerLink="/games">Nos jeux</a></li>
-                <div *ngIf="this._sessionService.isLogged()">
+                <div *ngIf="this._sessionService.isLogged() && this._sessionService.getUserRole()!='Admin'">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/favorites-games">Mes jeux préférés</a></li>
                 </div>
                 <div *ngIf="!this._sessionService.isLogged()">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/login">Me connecter</a></li>
+                </div>
+                <div *ngIf="this._sessionService.isLogged() && this._sessionService.getUserRole() == 'Admin'">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            routerLink="/users">Utilisateurs</a></li>
                 </div>
                 <div *ngIf="this._sessionService.isLogged() && this._sessionService.getUserRole() == 'Admin'">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"

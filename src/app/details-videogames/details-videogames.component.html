@@ -4,9 +4,11 @@
 <br>
 <br>
 <br>
+<br>
+<br>
 
 <img src="{{videoGame.jacketUrl}}" class="center" width="200" height="270" alt="">
-<div *ngIf="isLogged == true">
+<div *ngIf="this._sessionService.isLogged() && this._sessionService.getUserRole() != 'Admin'">
     <label>
         <div>
             <input type="button" class="btn-success" value="Ajouter aux favoris" (click)="addVideoGame()">

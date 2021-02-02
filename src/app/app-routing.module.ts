@@ -10,6 +10,7 @@ import { QuestionsComponent } from './questions/questions.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportComponent } from './report/report.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'update-account',
     component: UpdateAccountComponent
+  },
+  {
+    path: 'users',
+    component: UsersComponent
   }
 ];
 

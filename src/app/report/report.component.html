@@ -5,10 +5,10 @@
 <br>
 <br>
 <br>
-<table class="table table-dark">
+<table class="table table-striped table-dark">
     <thead>
       <tr>
-        <th scope="col">Id</th>
+        <th scope="col">Identifiant</th>
         <th scope="col">Utilisateur signalé</th>
         <th scope="col">Utilisateur le signalant</th>
         <th scope="col">Commentaire</th>
@@ -28,7 +28,7 @@
         <td>{{item.comment.commentText}}</td>
         <td>{{item.comment.videoGame.name}}</td>
         <td>{{item.reason}}</td>
-        <td><input type="button" value="Supprimer" (click)="deleteReport(item.reportId)"></td>
+        <td><input type="button" class="btn-danger" value="Supprimer" (click)="deleteReport(item.reportId)"></td>
       </tr>
     </tbody>
   </table>
