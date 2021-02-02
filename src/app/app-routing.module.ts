@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportComponent } from './report/report.component';
+import { UpdateAccountComponent } from './update-account/update-account.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'detailscomment/:id',
     component: DetailsCommentComponent
+  },
+  {
+    path: 'update-account',
+    component: UpdateAccountComponent
   }
 ];
 

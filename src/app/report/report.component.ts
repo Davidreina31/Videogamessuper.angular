@@ -5,6 +5,7 @@ import { Report } from '../models/report';
 import { User } from '../models/user';
 import { CommentService } from '../service/comment.service';
 import { ReportService } from '../service/report.service';
+import { SessionService } from '../service/session.service';
 import { UserService } from '../service/user.service';
 import { VideogameService } from '../service/videogame.service';
 
@@ -24,10 +25,17 @@ export class ReportComponent implements OnInit {
     private _userService: UserService,
     private _commentService: CommentService,
     private _videoGameService: VideogameService,
+    private _sessionService: SessionService,
     private _router: Router
   ) { }
 
   ngOnInit(): void {
+
+    if(this._sessionService.getUserId() == undefined || this._sessionService.getUserRole() != "Admin"){
+      this._router.navigate(["/home"]);
+    }
+    
+
     this._reportService.getAll().subscribe(
       (dataReport) => {
         this.report = dataReport;

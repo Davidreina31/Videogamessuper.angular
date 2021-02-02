@@ -17,14 +17,4 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  isLogged: boolean = this._sessionService.isLogged();
-  role: string = this._sessionService.getUserRole();
-
-  public logout(){
-    sessionStorage.removeItem("userInfo");
-    sessionStorage.clear();
-    location.reload();
-  }
-
-
 }

@@ -19,6 +19,7 @@ import { ReportComponent } from './report/report.component';
 import { DetailsCommentComponent } from './details-comment/details-comment.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { InterceptorService } from './service/interceptor.service';
+import { UpdateAccountComponent } from './update-account/update-account.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("jwt");
@@ -37,7 +38,8 @@ export function tokenGetter() {
     DetailsVideogamesComponent,
     CreateCommentComponent,
     ReportComponent,
-    DetailsCommentComponent
+    DetailsCommentComponent,
+    UpdateAccountComponent
   ],
   imports: [
     BrowserModule,

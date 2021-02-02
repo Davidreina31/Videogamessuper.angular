@@ -25,6 +25,17 @@ export class UserService {
   
   public createUser(u: User) : Observable<void>{
     return this._client.post<void>(this._url, u);
-    };
+    }
+  
+  public updateUser(id: number, u:User): Observable<void>{
+    return this._client.put<void>(this._url + id, u);
   }
+
+  public deleteUser(id: number): Observable<void>{
+    return this._client.delete<void>(this._url + id);
+  }
+
+  }
+
+  
 

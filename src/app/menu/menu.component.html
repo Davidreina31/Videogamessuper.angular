@@ -24,13 +24,17 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/login">Me connecter</a></li>
                 </div>
-                <div *ngIf="this._sessionService.isLogged() && role == 'Admin'">
+                <div *ngIf="this._sessionService.isLogged() && this._sessionService.getUserRole() == 'Admin'">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/report">Signalements</a></li>
                 </div>
+                <div *ngIf="this._sessionService.isLogged() && this._sessionService.getUserRole() != 'Admin'">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                            routerLink="/update-account">Modifier mon compte</a></li>
+                </div>
                 <div *ngIf="this._sessionService.isLogged()">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">Bonjour {{this._sessionService.getUserName()}}</a> 
-                    <input class="btn btn-primary btn-lg"  type="button" value="déconnexion" (click)="logout()">
+                    <input class="btn btn-primary btn-lg"  type="button" value="déconnexion" (click)="this._sessionService.logout()">
                 </div>
 
             </ul>

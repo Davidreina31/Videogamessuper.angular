@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this._sessionService.getUserId()!=undefined){
+    if(this._sessionService.getUserId() != undefined){
       this._router.navigate(["/home"]);
     }
 

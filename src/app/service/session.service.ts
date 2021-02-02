@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoggedInfo } from '../models/logged-info';
 import jwt_decode from "../../../node_modules/jwt-decode";
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,11 @@ import jwt_decode from "../../../node_modules/jwt-decode";
 export class SessionService {
 
   decryptedToken: any;
+  email: string;
 
-  constructor() { }
+  constructor(
+    private _userService: UserService
+  ) { }
 
   public getUserId(): number{
     if(sessionStorage.getItem("userInfo") != null){
@@ -40,6 +44,13 @@ export class SessionService {
     return null;
   }
 
+  public getEmail(): string{
+    this._userService.getOne(this.getUserId()).subscribe(
+      (data) => this.email = data.email
+    )
+    return this.email;
+  }
+
   public isLogged(): boolean{
     if(sessionStorage.getItem("userInfo")!=null){
       return true;
@@ -47,6 +58,12 @@ export class SessionService {
     else{
       return false;
     }
+  }
+
+  public logout(){
+    sessionStorage.removeItem("userInfo");
+    sessionStorage.clear();
+    location.reload();
   }
 
   private _connectedUser: LoggedInfo;

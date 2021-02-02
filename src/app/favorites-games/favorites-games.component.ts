@@ -24,6 +24,10 @@ export class FavoritesGamesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(this._sessionService.getUserId() == undefined){
+      this._router.navigate(["/home"]);
+    }
+
     this._favoritesGamesService.getAllByUser(this._sessionService.getUserId()).subscribe(
       (dataUv) => this.userVideoGame = dataUv
     )
