@@ -4,10 +4,18 @@
 <br>
 <br>
 
+<div *ngIf="this._sessionService.isLogged() && this.getUserRole() != 'user'">
+    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+            routerLink="/add-game">Ajouter un jeu</a></li>
+</div>
+
+<br>
+<br>
+
 <div class="container">
     <article class="container-fluid" *ngFor="let item of videoGamesList">
         <img src="{{item.jacketUrl}}" alt="" width="180" height="230">
-        <h5><a [routerLink]="['/detailsvg/' + item.videoGameId]">{{item.name}}</a></h5>
+        <h5><a [routerLink]="['/detailsvg/' + item.id]">{{item.name}}</a></h5>
         <p> </p>
     </article>
 </div>

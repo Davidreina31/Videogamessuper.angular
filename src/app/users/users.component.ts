@@ -20,10 +20,10 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this._sessionService.getUserId() == undefined || this._sessionService.getUserRole() != "Admin") {
-      this._router.navigate(["/home"]);
-    }
+    this.loadData();
+  }
 
+  loadData(){
     this._userService.getAll().subscribe(
       (data) => this.users = data
     )
@@ -31,7 +31,7 @@ export class UsersComponent implements OnInit {
 
   public delete(id: number){
     this._userService.deleteUser(id).subscribe({
-      next: () => location.reload(),
+      next: () => this.loadData(),
       error: (error) => console.log(error)
     })
   }

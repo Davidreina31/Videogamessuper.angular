@@ -9,16 +9,16 @@ import { VideoGame } from '../models/video-game';
 })
 export class FavoritesGamesService {
 
-  private _url: string = "http://localhost:5001/api/User_VideoGame_/";
+  private _url: string = "http://localhost:5001/api/UserVideoGame/";
 
   constructor(private _client: HttpClient) { }
 
   public getAllByUser(id: number): Observable<UserVideoGame[]>{
-    return this._client.get<UserVideoGame[]>("http://localhost:5001/api/User_VideoGame_?id=" + id);
+    return this._client.get<UserVideoGame[]>(this._url + id);
   }
 
-  public getVideoGamesByUserId(id: number): Observable<VideoGame[]>{
-    return this._client.get<VideoGame[]>(this._url + id);
+  public getVideoGamesByUserId(id: number): Observable<UserVideoGame[]>{
+    return this._client.get<UserVideoGame[]>(this._url + id);
   }
 
   public AddVideoGame(uv: UserVideoGame): Observable<void>{
@@ -26,11 +26,6 @@ export class FavoritesGamesService {
   }
 
   public deleteVideoGame(userId: number, videoGameId: number): Observable<void>{
-    return this._client.delete<void>("http://localhost:5001/api/User_VideoGame_?UserId=" +userId+"&VideoGameId="+videoGameId);
+    return this._client.delete<void>("http://localhost:5001/api/UserVideoGame?UserId=" +userId+"&VideoGameId="+videoGameId);
   }
-
-  
-
-  
-
 }

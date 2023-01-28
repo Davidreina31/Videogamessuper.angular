@@ -43,7 +43,7 @@ export class UpdateAccountComponent implements OnInit {
   public update() {
     if (this.form.valid) {
       this.updatedUser = new User()
-      this.updatedUser.userId = this._sessionService.getUserId();
+      this.updatedUser.id = this._sessionService.getUserId();
       this.updatedUser.userName = this.form.controls['username'].value;
       this.updatedUser.email = this.form.controls['email'].value;
       this.updatedUser.passwordHash = this.form.controls['pwd'].value

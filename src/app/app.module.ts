@@ -17,17 +17,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CreateCommentComponent } from './create-comment/create-comment.component';
 import { ReportComponent } from './report/report.component';
 import { DetailsCommentComponent } from './details-comment/details-comment.component';
-import { JwtModule } from '@auth0/angular-jwt';
 import { InterceptorService } from './service/interceptor.service';
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { UsersComponent } from './users/users.component';
+import { AuthModule } from '@auth0/auth0-angular';
+import { LoginAuth0Component } from './login-auth0/login-auth0.component';
+import { AddVideogameComponent } from './add-videogame/add-videogame.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("jwt");
 }
 
 @NgModule({
-  declarations: [
+  declarations: [			
     AppComponent,
     HomeComponent,
     RegisterComponent,
@@ -41,20 +43,19 @@ export function tokenGetter() {
     ReportComponent,
     DetailsCommentComponent,
     UpdateAccountComponent,
-    UsersComponent
-  ],
+    UsersComponent,
+      LoginAuth0Component,
+      AddVideogameComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains:["localhost:4200"],
-        disallowedRoutes:[]
-      }
-    })
+    AuthModule.forRoot({
+      domain: 'dev-c4fngek5.us.auth0.com',
+      clientId: 'TgKVsBzNfNeARkHabuCyaAci07P0zkTM'
+    }),
 
   ],
   providers: [{

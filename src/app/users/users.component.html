@@ -19,10 +19,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of users">
-        <th scope="row">{{item.userId}}</th>
+        <th scope="row">{{item.id}}</th>
         <td>{{item.userName}}</td>
         <td>{{item.email}}</td>
-        <td><input type="button" class="btn-danger" (click)="delete(item.userId)" value="supprimer compte"></td>
+        <td><input type="button" class="btn-danger" (click)="delete(item.id)" value="supprimer compte"></td>
       </tr>
     </tbody>
   </table>

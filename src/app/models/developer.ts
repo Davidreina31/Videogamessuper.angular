@@ -1,5 +1,5 @@
 export class Developer {
-    public developerId: number;
+    public id: number;
     public name: string;
     public cityId: number;
 }

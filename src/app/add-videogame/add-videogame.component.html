@@ -1,0 +1,51 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-xl-9 mx-auto">
+                <div class="card card-signin flex-row my-5">
+                    <div class="card-img-left d-none d-md-flex">
+                        <!-- Background image for card set in CSS! -->
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Ajout d'un jeu</h5>
+
+                        <form class="form_group" [formGroup]="form" (ngSubmit)="insertVideoGame()">
+                            <div class="form-label-group">
+                                <label for="name"></label>
+                                <input type="text" class="form-control" placeholder="name" id="name"
+                                    formControlName="name">
+                            </div>
+
+                            <div class="form-label-group">
+                                <label for="description"></label>
+                                <input type="textarea" id="email" class="form-control" placeholder="description"
+                                    formControlName="description">
+
+                            </div>
+
+                            <hr>
+
+                            <div class="form-label-group">
+                                <label for="jacketUrl"></label>
+                                <input type="text" id="pwd" class="form-control" placeholder="jacketUrl"
+                                    formControlName="jacketUrl">
+
+                            </div>
+                            <br>
+                            <label>
+                                <input type="submit" class="btn btn-lg btn-primary btn-block text-uppercase"
+                                    value="Confirmer" [disabled]="form.invalid">
+                            </label>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

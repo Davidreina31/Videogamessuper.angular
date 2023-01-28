@@ -23,6 +23,11 @@ export class UserService {
     return this._client.get<User>(this._url + id);
   }
   
+  public getBySub(sub: string) : Observable<User>{
+    return this._client.get<User>(this._url + "sub/" + sub);
+
+  }
+
   public createUser(u: User) : Observable<void>{
     return this._client.post<void>(this._url, u);
     }

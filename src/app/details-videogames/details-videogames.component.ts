@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { tick } from '@angular/core/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
 import { Answer } from '../models/answer';
 import { Comment } from '../models/comment';
 import { Question } from '../models/question';
@@ -23,6 +24,8 @@ import { VideogameService } from '../service/videogame.service';
 })
 export class DetailsVideogamesComponent implements OnInit {
 
+  user: any;
+  currentUser: User;
   videoGame: VideoGame;
   userVideoGame: UserVideoGame;
   comments: Comment[] = [];
@@ -40,6 +43,7 @@ export class DetailsVideogamesComponent implements OnInit {
   form: FormGroup;
   formQuestion: FormGroup;
   formAnswer: FormGroup;
+  isLogged: boolean;
   
 
 
@@ -51,53 +55,43 @@ export class DetailsVideogamesComponent implements OnInit {
     private _answerService: AnswerService,
     public _favoritesGamesService: FavoritesGamesService,
     private _builder: FormBuilder,
+    private _authService: AuthService,
     public _sessionService: SessionService,
     private _router: Router
   ) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
 
+  loadData(){
+    this.isLogged = this._sessionService.isLogged();
     this.videoGameId = this._route.snapshot.paramMap.get("id");
 
-    this._videoGameService.getOne(this.videoGameId).subscribe(
-      (data: VideoGame) => this.videoGame = data
-    )
-
-    this._commentService.getCommentFromVideoGameId(this.videoGameId).subscribe(
-      (data: Comment[]) => {
-        this.comments = data;
-        this.comments.forEach(c => {
-          this._userService.getOne(c.userId).subscribe(
-            (dataComment) => c.user = dataComment
-          )
+    this._videoGameService.getOne(this.videoGameId).subscribe( data=>{
+      this.videoGame = data
+      console.log(this.videoGame.comments);
+      for(let i =0; i<this.videoGame.comments.length; i++){
+        this._userService.getOne(this.videoGame.comments[i].userId).subscribe(userData =>{
+          this.videoGame.comments[i].user = userData;
         })
+      }
+    })
+
+    this._authService.user$.subscribe(data =>{
+      this.user = data;
+      this._userService.getBySub(this.user.sub).subscribe(data => {
+        this.currentUser = data;
+        this.userId = this.currentUser.id;
+        console.log(this.currentUser);
       })
+    })
+
 
     this.form = this._builder.group({
       note: ['', [Validators.required]],
       comment: ['', [Validators.required]]
     })
-
-
-    this._questionService.getAllFromVideoGame(this.videoGameId).subscribe(
-      (data: Question[]) => {
-        this.questions = data;
-        this.questions.forEach(q => {
-          this._userService.getOne(q.userId).subscribe(
-            (dataUser) => q.user = dataUser
-          ),
-            this._answerService.getAllFromOneQuestion(q.questionId).subscribe(
-              (dataAnswers) => {
-                q.answers = dataAnswers;
-                q.answers.forEach(a => {
-                  this._userService.getOne(a.userId).subscribe(
-                    (dataAnswers) => a.user = dataAnswers
-                  )
-                })
-              })
-        });
-      }
-    )
 
     this.formQuestion = this._builder.group({
       question: ['', [Validators.required]]
@@ -106,20 +100,17 @@ export class DetailsVideogamesComponent implements OnInit {
     this.formAnswer = this._builder.group({
       answer: ['', [Validators.required]]
     })
-
   }
-
-  isLogged: boolean = this._sessionService.isLogged();
 
   public insertComment() {
     if (this.form.valid) {
       this.comment = new Comment();
-      this.comment.userId = this._sessionService.getUserId();
+      this.comment.userId = this.userId;
       this.comment.note = this.form.controls['note'].value;
       this.comment.commentText = this.form.controls['comment'].value;
       this.comment.videoGameId = this.videoGameId;
       this._commentService.createComment(this.comment).subscribe({
-        next: () => location.reload(),
+        next: () => this.loadData(),
         error: (error) => console.log(error)
       })
     }
@@ -127,7 +118,7 @@ export class DetailsVideogamesComponent implements OnInit {
 
   public deleteComment(id: number) {
     this._commentService.deleteComment(id).subscribe({
-      next: () => location.reload(),
+      next: () => this.loadData(),
       error: (error) => console.log(error)
     })
   }
@@ -175,7 +166,7 @@ export class DetailsVideogamesComponent implements OnInit {
 
   public addVideoGame() {
     this.userVideoGame = new UserVideoGame();
-    this.userVideoGame.userId = this._sessionService.getUserId();
+    this.userVideoGame.userId = this.userId;
     this.userVideoGame.videoGameId = this.videoGameId;
     this._favoritesGamesService.AddVideoGame(this.userVideoGame).subscribe({
       next: () => this._router.navigate(["/favorites-games"]),
@@ -183,7 +174,9 @@ export class DetailsVideogamesComponent implements OnInit {
     })
   }
 
-  
+  public getUserRole(): string{
+    return this.currentUser.role;
+  }
 
 
 }

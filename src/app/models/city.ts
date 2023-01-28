@@ -1,5 +1,5 @@
 export class City {
-    public cityId: number;
+    public id: number;
     public name: string;
     public countryCode: string;
 }

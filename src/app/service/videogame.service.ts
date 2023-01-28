@@ -12,6 +12,10 @@ export class VideogameService {
 
   constructor(private _client: HttpClient) { }
 
+  public AddGame(g: VideoGame): Observable<void> {
+    return this._client.post<void>(this._url, g);
+  }
+
   public getAll(): Observable <VideoGame[]>{
     return this._client.get<VideoGame[]>(this._url); 
   }

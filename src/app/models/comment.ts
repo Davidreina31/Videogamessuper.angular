@@ -2,7 +2,7 @@ import { User } from "./user";
 import { VideoGame } from "./video-game";
 
 export class Comment {
-    public commentId: number;
+    public id: number;
     public note: number;
     public commentText: string;
     public commentDate: Date;

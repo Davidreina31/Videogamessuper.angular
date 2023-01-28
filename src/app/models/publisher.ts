@@ -1,5 +1,5 @@
 export class Publisher {
-    public publisherId: number;
+    public id: number;
     public name: string;
     public cityId: number;
 }
