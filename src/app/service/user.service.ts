@@ -9,7 +9,7 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-  private _url: string = "http://localhost:5001/api/user/";
+  private _url: string = "http://localhost:5081/api/user/";
 
   constructor(
     private _client: HttpClient,
@@ -22,7 +22,7 @@ export class UserService {
   public getOne(id: number) : Observable<User>{
     return this._client.get<User>(this._url + id);
   }
-  
+
   public getBySub(sub: string) : Observable<User>{
     return this._client.get<User>(this._url + "sub/" + sub);
 
@@ -31,7 +31,7 @@ export class UserService {
   public createUser(u: User) : Observable<void>{
     return this._client.post<void>(this._url, u);
     }
-  
+
   public updateUser(id: number, u:User): Observable<void>{
     return this._client.put<void>(this._url + id, u);
   }
@@ -42,5 +42,5 @@ export class UserService {
 
   }
 
-  
+
 

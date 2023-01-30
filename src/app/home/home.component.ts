@@ -23,10 +23,6 @@ export class HomeComponent implements OnInit {
     , private _sessionService: SessionService, private _descriptionService: DescriptionServiceService) { }
 
   ngOnInit(): void {
-    this._descriptionService.get().subscribe(data => {
-      this.description = data;
-      console.log(data);
-    })
     this.auth.user$.subscribe(data => {
       this.userInfo = data;
       this.loadData();
@@ -40,7 +36,7 @@ export class HomeComponent implements OnInit {
     this.user.sub = this.userInfo.sub;
     this.user.role = "user";
 
-    console.log(this.user);
+    // console.log(this.user);
 
     this._userService.createUser(this.user).subscribe({
       next: () => this._router.navigate(["/home"]),
@@ -52,8 +48,8 @@ export class HomeComponent implements OnInit {
       sessionStorage.setItem("jwt",data.access_token);
     })
 
-    
-    
+
+
   }
-  
+
 }

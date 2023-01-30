@@ -15,7 +15,7 @@ export class SessionService {
   decryptedToken: any;
   email: string;
   result: boolean;
-  user: any;  
+  user: any;
   public loginCredentials: LoginCredentials;
   private _tokenUrl: string = "https://dev-c4fngek5.us.auth0.com/oauth/token"
 
@@ -25,9 +25,9 @@ export class SessionService {
     private _client: HttpClient
   ) {
     this.loginCredentials = new LoginCredentials();
-    this.loginCredentials.client_id = "wtk2m79yJig4L5LyfgNi5fox0enazV53";
-    this.loginCredentials.client_secret = "tkNF720XWflWJGBxUNztvMKKDWQNEXmaSrXIdzD6dAsji5N88rL1y2SL_WyS2QVa";
-    this.loginCredentials.audience = "http://localhost:5001";
+    this.loginCredentials.client_id = "la8wSUQBhWoFVI2912q2DOYKVwgWtLXB";
+    this.loginCredentials.client_secret = "eyCgRHM_-ER-qPtIHzbbsWK54gozDC4QKzGSjThdsiik9RMr8B_9GE2-Iig91ouF";
+    this.loginCredentials.audience = "http://localhost:5081";
     this.loginCredentials.grant_type = "client_credentials";
    }
 
@@ -52,20 +52,13 @@ export class SessionService {
   }
 
   public getUserRole(): string{
-    if(sessionStorage.getItem("userInfo") != null)
-    {
-      let role;
-      role = JSON.parse(sessionStorage.getItem("userInfo"))
-      return role["role"];
-    }
-    return null;
-    // this._authService.user$.subscribe(data => {
-    //   this.user = data;
-    //   this._userService.getBySub(this.user.sub).subscribe(data => {
-    //     this.user.role = data.role
-    //   });
-    // })
-    // return this.user.role;
+    this._authService.user$.subscribe(data => {
+      this.user = data;
+      this._userService.getBySub(this.user.sub).subscribe(data => {
+        this.user.role = data.role
+      });
+    })
+    return this.user.role;
   }
 
   public getUserName(): string{
@@ -96,7 +89,6 @@ export class SessionService {
       this.result = data;
     });
     return this.result;
-
   }
 
   public logout(){
@@ -126,7 +118,7 @@ export class SessionService {
       this.decryptedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
       this.decryptedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
       this.decryptedToken["exp"]
-      );           
+      );
     sessionStorage.setItem("userInfo",JSON.stringify(dt));
   }
 }

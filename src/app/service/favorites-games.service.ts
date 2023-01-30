@@ -9,7 +9,7 @@ import { VideoGame } from '../models/video-game';
 })
 export class FavoritesGamesService {
 
-  private _url: string = "http://localhost:5001/api/UserVideoGame/";
+  private _url: string = "http://localhost:5081/api/UserVideoGame/";
 
   constructor(private _client: HttpClient) { }
 
@@ -26,6 +26,6 @@ export class FavoritesGamesService {
   }
 
   public deleteVideoGame(userId: number, videoGameId: number): Observable<void>{
-    return this._client.delete<void>("http://localhost:5001/api/UserVideoGame?UserId=" +userId+"&VideoGameId="+videoGameId);
+    return this._client.delete<void>("http://localhost:5081/api/UserVideoGame?UserId=" +userId+"&VideoGameId="+videoGameId);
   }
 }

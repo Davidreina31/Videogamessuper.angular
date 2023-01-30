@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
   constructor(
     public _sessionService: SessionService,
     public _authService: AuthService,
-    private _usersService: UserService
+    public _usersService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -32,8 +32,8 @@ export class MenuComponent implements OnInit {
       this.currentUser = data;
     })
   }
-
   public getUserRole(): string{
+    console.log(this.currentUser.role);
     return this.currentUser.role;
   }
 }

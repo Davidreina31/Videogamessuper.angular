@@ -8,7 +8,7 @@ import { VideoGame } from '../models/video-game';
 })
 export class VideogameService {
 
-  private _url: string ="http://localhost:5001/api/videogame/";
+  private _url: string ="http://localhost:5081/api/videogame/";
 
   constructor(private _client: HttpClient) { }
 
@@ -17,7 +17,7 @@ export class VideogameService {
   }
 
   public getAll(): Observable <VideoGame[]>{
-    return this._client.get<VideoGame[]>(this._url); 
+    return this._client.get<VideoGame[]>(this._url);
   }
 
   public getOne(id: number): Observable<VideoGame>{
