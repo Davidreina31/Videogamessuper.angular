@@ -62,9 +62,9 @@
                                 </label>
                             </ng-container>
 
-                            <!-- <div *ngIf="isLogged == true">
+                            <div *ngIf="this._sessionService.isLogged()">
                                 <a [routerLink]="['/detailscomment/' + item.commentId]">Signaler</a>
-                            </div> -->
+                            </div>
                         </div>
 
                     </div>

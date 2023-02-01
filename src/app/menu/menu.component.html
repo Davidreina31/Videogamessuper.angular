@@ -28,10 +28,10 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/users">Utilisateurs</a></li>
                 </div> -->
-                <!-- <div *ngIf="this._sessionService.isLogged() && this.getUserRole() == 'Admin'">
+                <div *ngIf="this._sessionService.isLogged() && this.getUserRole() == 'Admin'">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/report">Signalements</a></li>
-                </div> -->
+                </div>
                 <!-- <div *ngIf="this._sessionService.isLogged() && this.getUserRole() != 'Admin'">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/update-account">Modifier mon compte</a></li>

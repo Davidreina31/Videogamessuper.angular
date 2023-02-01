@@ -47,9 +47,6 @@ export class HomeComponent implements OnInit {
       console.log(data);
       sessionStorage.setItem("jwt",data.access_token);
     })
-
-
-
   }
 
 }

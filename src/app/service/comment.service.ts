@@ -10,7 +10,7 @@ import { LoginCredentials } from '../models/loginCredentials';
 export class CommentService {
 
   token: string;
-  private _url: string = "http://localhost:5001/api/comment/";
+  private _url: string = "http://localhost:5081/api/comment/";
 
   constructor(private _client: HttpClient) { 
     
@@ -21,7 +21,7 @@ export class CommentService {
   }
 
   public getOne(id: number): Observable<Comment>{
-    return this._client.get<Comment>("http://localhost:5001/api/Comment?id=" + id);
+    return this._client.get<Comment>("http://localhost:5081/api/Comment?id=" + id);
   }
 
   public createComment(c: Comment): Observable<void> {

@@ -8,7 +8,7 @@ import { Report } from '../models/report';
 })
 export class ReportService {
 
-  private _url: string = "http://localhost:5001/api/Report/";
+  private _url: string = "http://localhost:5081/api/Report/";
 
   constructor(private _client: HttpClient) { }
 
