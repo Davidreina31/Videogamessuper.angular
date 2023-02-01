@@ -34,7 +34,6 @@ export class DetailsCommentComponent implements OnInit {
 
   ngOnInit(): void {
     this.commentId = this._route.snapshot.paramMap.get("id");
-
     this._commentService.getOne(this.commentId).subscribe(
       (data) => {
         this.comment = data;

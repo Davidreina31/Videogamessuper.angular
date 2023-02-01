@@ -16,9 +16,7 @@ import { VideogameService } from '../service/videogame.service';
 })
 export class ReportComponent implements OnInit {
 
-  report: Report[] = [];
-
-
+  report: any;
 
   constructor(
     private _reportService: ReportService,
@@ -30,32 +28,14 @@ export class ReportComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
 
-    if(this._sessionService.getUserId() == undefined || this._sessionService.getUserRole() != "Admin"){
-      this._router.navigate(["/home"]);
-    }
-    
-
-    this._reportService.getAll().subscribe(
-      (dataReport) => {
-        this.report = dataReport;
-        this.report.forEach(r => {
-          this._userService.getOne(r.reporterUserId).subscribe(
-            (dataReporterUser) => r.reporterUser = dataReporterUser
-          ),
-            this._commentService.getOne(r.commentId).subscribe(
-              (dataComment) => {
-                r.comment = dataComment;
-                this._userService.getOne(r.comment.userId).subscribe(
-                  (dataUser) => r.comment.user = dataUser
-                ),
-                  this._videoGameService.getOne(r.comment.videoGameId).subscribe(
-                    (dataVideoGame) => r.comment.videoGame = dataVideoGame
-                  )
-              }
-            )
-        })
-      })
+  loadData() {
+    this._reportService.getAll().subscribe((data) => {
+      this.report = data;
+      console.log(this.report[0]);
+    })
   }
 
   public deleteReport(id: number) {

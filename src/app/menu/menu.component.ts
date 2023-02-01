@@ -33,7 +33,6 @@ export class MenuComponent implements OnInit {
     })
   }
   public getUserRole(): string{
-    console.log(this.currentUser.role);
     return this.currentUser.role;
   }
 }

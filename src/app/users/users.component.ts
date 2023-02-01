@@ -30,6 +30,7 @@ export class UsersComponent implements OnInit {
   }
 
   public delete(id: number){
+    
     this._userService.deleteUser(id).subscribe({
       next: () => this.loadData(),
       error: (error) => console.log(error)

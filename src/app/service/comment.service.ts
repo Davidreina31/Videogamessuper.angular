@@ -16,12 +16,12 @@ export class CommentService {
     
   }
 
-  public getCommentFromVideoGameId(id: number): Observable<Comment[]> {
-    return this._client.get<Comment[]>(this._url + id);
-  }
+  // public getCommentFromVideoGameId(id: number): Observable<Comment[]> {
+  //   return this._client.get<Comment[]>(this._url + id);
+  // }
 
   public getOne(id: number): Observable<Comment>{
-    return this._client.get<Comment>("http://localhost:5081/api/Comment?id=" + id);
+    return this._client.get<Comment>(this._url+ id);
   }
 
   public createComment(c: Comment): Observable<void> {

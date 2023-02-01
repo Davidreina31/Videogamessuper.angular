@@ -2,7 +2,7 @@ import { Comment } from "./comment";
 import { User } from "./user";
 
 export class Report {
-    public reportId: number;
+    public id: number;
     public reason: string;
     public reportDate: Date;
     public commentId: number;

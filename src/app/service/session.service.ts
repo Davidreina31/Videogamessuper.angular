@@ -43,12 +43,14 @@ export class SessionService {
   }
 
   public getUserId(): number{
-    if(sessionStorage.getItem("userInfo") != null){
-      let userId;
-      userId = JSON.parse(sessionStorage.getItem("userInfo"));
-      return userId["userId"];
-    }
-    return null;
+    this._authService.user$.subscribe(data => {
+      this.user = data;
+      this._userService.getBySub(this.user.sub).subscribe(data => {
+        console.log(this.user);
+        this.user.id = data.id
+      });
+    })
+    return this.user.id;
   }
 
   public getUserRole(): string{
