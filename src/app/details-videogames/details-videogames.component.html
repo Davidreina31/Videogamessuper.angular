@@ -30,11 +30,13 @@
 <p>{{videoGame.publisher.name}}</p>
 <h5>Plateformes disponibles :</h5>
 <p *ngFor="let item of videoGame.plateformVideoGame">{{item.plateform.plateformName}}</p>
+<div *ngIf="this._sessionService.isLogged() && this.getUserRole() != 'user'">
 <a [routerLink]="['/add-pvg/' + videoGameId]">Ajouter plateformes</a>
+</div>
 <hr>
-<label *ngIf="this.getUserRole() =='Owner'">
+<div *ngIf="this._sessionService.isLogged() && this.getUserRole() == 'Owner'">
     <input type="button" class="btn-danger" value="supprimer jeux-vidéo" (click)="deleteVideoGame(videoGameId)">
-</label>
+</div>
 <h4>Commentaires : </h4>
 <br>
 <div *ngFor="let item of videoGame.comments">
@@ -101,27 +103,27 @@
 <hr>
 <br>
 
-<!-- <h3>Questions/réponses</h3>
+<h3>Questions/réponses</h3>
 <br>
 <div class="border border-info" *ngFor="let item of questions">
     <h5 class="username"><a class="username">{{item.user.userName}}</a></h5>
-    
+
     <span class="g-color-gray-dark-v4 g-font-size-12">{{item.questionDate | date}}</span>
     <p class="description">{{item.questionText}}</p>
-    <label *ngIf="item.user.id == userId || this._sessionService.getUserRole() == 'Admin' || this._sessionService.getUserRole() == 'Owner'">
+    <label *ngIf="item.user.id == userId || this.getUserRole() == 'Admin' || this.getUserRole() == 'Owner'">
         <input type="button" class="btn-danger" value="supprimer question" (click)="deleteQuestion(item.id)">
     </label>
     <div style="text-align: center;" class="border border-success" *ngFor="let a of item.answers">
         <h5 class="username-answer"><a class="username-answer">{{a.user.userName}}</a></h5>
         <span class="g-color-gray-dark-v4 g-font-size-12">{{a.answerDate | date}}</span>
         <p class="description">{{a.answerText}}</p>
-        <div *ngIf="a.userId == this._sessionService.getUserId() || this._sessionService.getUserRole() == 'Admin'">
-            <input type="button" class="btn-danger" value="supprimer réponse" (click)="deleteAnswer(a.answerId)">
+        <div *ngIf="a.userId == userId || this.getUserRole() == 'Admin' || this.getUserRole() == 'Owner'">
+            <input type="button" class="btn-danger" value="supprimer réponse" (click)="deleteAnswer(a.id)">
         </div>
     </div>
-    
+
     <div *ngIf="isLogged == true">
-        <form [formGroup]="formAnswer" (ngSubmit)="insertAnswer(item.questionId)">
+        <form [formGroup]="formAnswer" (ngSubmit)="insertAnswer(item.id)">
             <label for="answer">
                 <h5>Répondre</h5>
                 <textarea cols="40" rows="2" id="answer" placeholder="votre réponse"
@@ -148,4 +150,4 @@
             <input type="submit" value="Envoyer" [disabled]="formQuestion.invalid">
         </label>
     </form>
-</div> -->
+</div>
