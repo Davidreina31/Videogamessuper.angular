@@ -23,13 +23,14 @@ import { UsersComponent } from './users/users.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { LoginAuth0Component } from './login-auth0/login-auth0.component';
 import { AddVideogameComponent } from './add-videogame/add-videogame.component';
+import { AddPlateformsVideogamesComponent } from './add-plateforms-videogames/add-plateforms-videogames.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("jwt");
 }
 
 @NgModule({
-  declarations: [			
+  declarations: [				
     AppComponent,
     HomeComponent,
     RegisterComponent,
@@ -45,7 +46,8 @@ export function tokenGetter() {
     UpdateAccountComponent,
     UsersComponent,
       LoginAuth0Component,
-      AddVideogameComponent
+      AddVideogameComponent,
+      AddPlateformsVideogamesComponent
    ],
   imports: [
     BrowserModule,

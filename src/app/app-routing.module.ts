@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AddPlateformsVideogamesComponent } from './add-plateforms-videogames/add-plateforms-videogames.component';
 import { AddVideogameComponent } from './add-videogame/add-videogame.component';
 import { DetailsCommentComponent } from './details-comment/details-comment.component';
 import { DetailsVideogamesComponent } from './details-videogames/details-videogames.component';
@@ -67,6 +68,10 @@ const routes: Routes = [
   {
     path: 'add-game',
     component: AddVideogameComponent
+  },
+  {
+    path: 'add-pvg/:id',
+    component: AddPlateformsVideogamesComponent
   }
 ];
 

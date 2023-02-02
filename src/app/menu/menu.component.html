@@ -20,11 +20,11 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/login">Me connecter</a></li>
                 </div>
-                <div *ngIf="this._sessionService.isLogged() && this.getUserRole() == 'Owner'">
+                <!-- <div *ngIf="this._sessionService.isLogged() && this.getUserRole() == 'Owner'">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/users">Utilisateurs</a></li>
-                </div>
-                <div *ngIf="this._sessionService.isLogged() && this.getUserRole() == 'Admin'">
+                </div> -->
+                <div *ngIf="this._sessionService.isLogged() && this.getUserRole() != 'user'">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             routerLink="/report">Signalements</a></li>
                 </div>

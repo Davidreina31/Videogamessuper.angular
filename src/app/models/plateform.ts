@@ -1,4 +1,4 @@
 export class Plateform {
-    public plateformId: number;
+    public id: number;
     public plateformName: string;
 }

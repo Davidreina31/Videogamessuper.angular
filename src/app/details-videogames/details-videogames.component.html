@@ -30,7 +30,7 @@
 <p>{{videoGame.publisher.name}}</p>
 <h5>Plateformes disponibles :</h5>
 <p *ngFor="let item of videoGame.plateformVideoGame">{{item.plateform.plateformName}}</p>
-
+<a [routerLink]="['/add-pvg/' + videoGameId]">Ajouter plateformes</a>
 <hr>
 <h4>Commentaires : </h4>
 <br>

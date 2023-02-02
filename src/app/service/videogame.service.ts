@@ -23,4 +23,8 @@ export class VideogameService {
   public getOne(id: number): Observable<VideoGame>{
     return this._client.get<VideoGame>(this._url + id);
   }
+
+  public update(id: number, u:VideoGame): Observable<void>{
+    return this._client.put<void>(this._url + id, u);
+  }
 }
