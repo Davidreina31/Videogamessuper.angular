@@ -2,7 +2,7 @@ import { Answer } from "./answer";
 import { User } from "./user";
 
 export class Question {
-    public questionId: number;
+    public id: number;
     public questionText: string;
     public questionDate: Date;
     public userId: number;

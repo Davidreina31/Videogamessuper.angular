@@ -1,7 +1,7 @@
 import { User } from "./user";
 
 export class Answer {
-    public answerId : number;
+    public id : number;
     public answerText: string;
     public answerDate: Date;
     public userId: number;

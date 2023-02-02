@@ -108,8 +108,8 @@
     
     <span class="g-color-gray-dark-v4 g-font-size-12">{{item.questionDate | date}}</span>
     <p class="description">{{item.questionText}}</p>
-    <label *ngIf="item.userId == this._sessionService.getUserId() || this._sessionService.getUserRole() == 'Admin'">
-        <input type="button" class="btn-danger" value="supprimer question" (click)="deleteQuestion(item.questionId)">
+    <label *ngIf="item.user.id == userId || this._sessionService.getUserRole() == 'Admin' || this._sessionService.getUserRole() == 'Owner'">
+        <input type="button" class="btn-danger" value="supprimer question" (click)="deleteQuestion(item.id)">
     </label>
     <div style="text-align: center;" class="border border-success" *ngFor="let a of item.answers">
         <h5 class="username-answer"><a class="username-answer">{{a.user.userName}}</a></h5>

@@ -70,12 +70,15 @@ export class DetailsVideogamesComponent implements OnInit {
 
     this._videoGameService.getOne(this.videoGameId).subscribe( data=>{
       this.videoGame = data
-      console.log(this.videoGame.comments);
       for(let i =0; i<this.videoGame.comments.length; i++){
         this._userService.getOne(this.videoGame.comments[i].userId).subscribe(userData =>{
           this.videoGame.comments[i].user = userData;
         })
       }
+    })
+
+    this._questionService.getAllFromVideoGame(this.videoGameId).subscribe(data => {
+      this.questions = data;
     })
 
     this._authService.user$.subscribe(data =>{
@@ -134,11 +137,11 @@ export class DetailsVideogamesComponent implements OnInit {
   public insertQuestion() {
     if (this.formQuestion.valid) {
       this.question = new Question();
-      this.question.userId = this._sessionService.getUserId();
+      this.question.userId = this.userId;
       this.question.questionText = this.formQuestion.controls['question'].value;
       this.question.videoGameId = this.videoGameId;
       this._questionService.createQuestion(this.question).subscribe({
-        next: () => location.reload(),
+        next: () => this.loadData(),
         error: (error) => console.log(error)
       })
     }
@@ -147,11 +150,11 @@ export class DetailsVideogamesComponent implements OnInit {
   public insertAnswer(id: number) {
     if (this.formAnswer.valid) {
       this.answer = new Answer();
-      this.answer.userId = this._sessionService.getUserId();
+      this.answer.userId = this.userId;
       this.answer.answerText = this.formAnswer.controls['answer'].value;
       this.answer.questionId = id;
       this._answerService.createAnswer(this.answer).subscribe({
-        next: () => location.reload(),
+        next: () => this.loadData(),
         error: (error) => console.log(error)
       })
     }
@@ -159,14 +162,14 @@ export class DetailsVideogamesComponent implements OnInit {
 
   public deleteAnswer(id: number){
     this._answerService.deleteAnswer(id).subscribe({
-      next: () => location.reload(),
+      next: () => this.loadData(),
       error: (error) => console.log(error)
     })
   }
 
   public deleteQuestion(id: number) {
     this._questionService.deleteQuestion(id).subscribe({
-      next: () => location.reload(),
+      next: () => this.loadData(),
       error: (error) => console.log(error)
     })
   }

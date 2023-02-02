@@ -3,6 +3,7 @@ import { Developer } from "./developer";
 import { Plateform } from "./plateform";
 import { Plateform_VideoGame } from "./plateform_VideoGame";
 import { Publisher } from "./publisher";
+import { Question } from "./question";
 
 export class VideoGame {
     public id: number;
@@ -16,4 +17,5 @@ export class VideoGame {
     public developer: Developer;
     public publisher: Publisher;
     public comments: Comment[];
+    public questions: Question[];
 }
