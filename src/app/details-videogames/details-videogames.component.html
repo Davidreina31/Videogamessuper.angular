@@ -32,6 +32,9 @@
 <p *ngFor="let item of videoGame.plateformVideoGame">{{item.plateform.plateformName}}</p>
 <a [routerLink]="['/add-pvg/' + videoGameId]">Ajouter plateformes</a>
 <hr>
+<label *ngIf="this.getUserRole() =='Owner'">
+    <input type="button" class="btn-danger" value="supprimer jeux-vidéo" (click)="deleteVideoGame(videoGameId)">
+</label>
 <h4>Commentaires : </h4>
 <br>
 <div *ngFor="let item of videoGame.comments">

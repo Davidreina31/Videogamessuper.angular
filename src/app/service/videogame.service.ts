@@ -27,4 +27,8 @@ export class VideogameService {
   public update(id: number, u:VideoGame): Observable<void>{
     return this._client.put<void>(this._url + id, u);
   }
+
+  public delete(id: number): Observable<void>{
+    return this._client.delete<void>(this._url + id);
+  }
 }

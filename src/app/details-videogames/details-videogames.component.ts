@@ -116,6 +116,13 @@ export class DetailsVideogamesComponent implements OnInit {
     }
   }
 
+  public deleteVideoGame(id: number){
+    this._videoGameService.delete(id).subscribe({
+      next: () => this._router.navigate(["/games"]),
+      error: (error) => console.log(error)
+    })
+  }
+
   public deleteComment(id: number) {
     this._commentService.deleteComment(id).subscribe({
       next: () => this.loadData(),
