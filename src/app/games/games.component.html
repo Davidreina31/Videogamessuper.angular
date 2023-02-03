@@ -1,25 +1,20 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<div *ngIf="this._sessionService.isLogged() && this.getUserRole() == 'Owner'">
-    <li class="nav-item mx-0 mx-lg-1">
-            <button type="button" routerLink="/add-game" class="btn btn-primary btn-lg">+</button>
-        </li>
-</div>
-
-<br>
-<br>
-
 <div class="container">
-    <article class="container-fluid" *ngFor="let item of videoGamesList">
-        <img src="{{item.jacketUrl}}" alt="" width="180" height="230">
-        <h5><a [routerLink]="['/detailsvg/' + item.id]">{{item.name}}</a></h5>
-        <p> </p>
-    </article>
+    <div class="row mb-3">
+        <div class="col">
+            <div *ngIf="this._sessionService.isLogged() && this.getUserRole() == 'Owner'">
+                <div class="nav-item mx-0 mx-lg-1">
+                    <button type="button" routerLink="/add-game" class="btn btn-primary btn-lg">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" *ngFor="let item of videoGamesList">
+                <article class="container-fluid">
+                    <img src="{{item.jacketUrl}}" alt="" width="180" height="230">
+                    <h5><a [routerLink]="['/detailsvg/' + item.id]">{{item.name}}</a></h5>
+                    <p> </p>
+                </article>
+        </div>
+    </div>
 </div>
