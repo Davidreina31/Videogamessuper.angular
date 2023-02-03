@@ -34,6 +34,7 @@ export class AddVideogameComponent implements OnInit {
       description: ['', [Validators.required]],
       developer: ['', [Validators.required]],
       publisher: ['', [Validators.required]],
+      releaseDate: ['', [Validators.required]],
       jacketUrl: ['', [Validators.required]],
       1 : [false, []],
       2 : [false, []],
@@ -66,6 +67,7 @@ export class AddVideogameComponent implements OnInit {
       })
       this.videoGame.name = this.form.controls['name'].value;
       this.videoGame.description = this.form.controls['description'].value;
+      this.videoGame.releaseDate = this.form.controls['releaseDate'].value;
       this.videoGame.jacketUrl = this.form.controls['jacketUrl'].value;
 
       this.addGame(this.videoGame);
