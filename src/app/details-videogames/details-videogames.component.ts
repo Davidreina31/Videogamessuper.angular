@@ -44,7 +44,7 @@ export class DetailsVideogamesComponent implements OnInit {
   formQuestion: FormGroup;
   formAnswer: FormGroup;
   isLogged: boolean;
-  
+  gameAlreadyAdded: boolean = false;
 
 
   constructor(private _videoGameService: VideogameService,
@@ -64,14 +64,14 @@ export class DetailsVideogamesComponent implements OnInit {
     this.loadData();
   }
 
-  loadData(){
+  loadData() {
     this.isLogged = this._sessionService.isLogged();
     this.videoGameId = this._route.snapshot.paramMap.get("id");
 
-    this._videoGameService.getOne(this.videoGameId).subscribe( data=>{
+    this._videoGameService.getOne(this.videoGameId).subscribe(data => {
       this.videoGame = data
-      for(let i =0; i<this.videoGame.comments.length; i++){
-        this._userService.getOne(this.videoGame.comments[i].userId).subscribe(userData =>{
+      for (let i = 0; i < this.videoGame.comments.length; i++) {
+        this._userService.getOne(this.videoGame.comments[i].userId).subscribe(userData => {
           this.videoGame.comments[i].user = userData;
         })
       }
@@ -81,12 +81,19 @@ export class DetailsVideogamesComponent implements OnInit {
       this.questions = data;
     })
 
-    this._authService.user$.subscribe(data =>{
+    this._authService.user$.subscribe(data => {
       this.user = data;
       this._userService.getBySub(this.user.sub).subscribe(data => {
         this.currentUser = data;
         this.userId = this.currentUser.id;
-        console.log(this.currentUser);
+        this._favoritesGamesService.getAllByUser(this.userId).subscribe(data => {
+          for (let i = 0; i < data.length; i++) {
+            if (this.videoGameId == data[i].videoGameId) {
+              this.gameAlreadyAdded = true;
+            }
+          }
+        }
+        )
       })
     })
 
@@ -103,6 +110,8 @@ export class DetailsVideogamesComponent implements OnInit {
     this.formAnswer = this._builder.group({
       answer: ['', [Validators.required]]
     })
+
+
   }
 
   public insertComment() {
@@ -119,7 +128,7 @@ export class DetailsVideogamesComponent implements OnInit {
     }
   }
 
-  public deleteVideoGame(id: number){
+  public deleteVideoGame(id: number) {
     this._videoGameService.delete(id).subscribe({
       next: () => this._router.navigate(["/games"]),
       error: (error) => console.log(error)
@@ -160,7 +169,7 @@ export class DetailsVideogamesComponent implements OnInit {
     }
   }
 
-  public deleteAnswer(id: number){
+  public deleteAnswer(id: number) {
     this._answerService.deleteAnswer(id).subscribe({
       next: () => this.loadData(),
       error: (error) => console.log(error)
@@ -184,9 +193,7 @@ export class DetailsVideogamesComponent implements OnInit {
     })
   }
 
-  public getUserRole(): string{
+  public getUserRole(): string {
     return this.currentUser.role;
   }
-
-
 }

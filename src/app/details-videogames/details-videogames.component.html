@@ -28,7 +28,7 @@
             <input type="button" class="btn-danger" value="supprimer jeux-vidéo" (click)="deleteVideoGame(videoGameId)">
         </div>
         <!-- <img src="{{videoGame.jacketUrl}}" class="center" width="200" height="270" alt=""> -->
-        <div *ngIf="this._sessionService.isLogged() && this.getUserRole() == 'user'">
+        <div *ngIf="!this.gameAlreadyAdded && this._sessionService.isLogged() && this.getUserRole() == 'user'">
             <label>
                 <div>
                     <input type="button" class="btn-success" value="Ajouter aux favoris" (click)="addVideoGame()">
